@@ -34,11 +34,7 @@ h2 {
     font-size: 3vmin;
     line-height: 1.3;
     font-family: "Dank Mono", ui-monospace, monospace;
-    background: linear-gradient(
-            to right, #6ce972, #ccff33
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #fff;
     text-align: center;
 }
 
