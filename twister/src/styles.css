@@ -1,15 +1,25 @@
 body {
     background-color: rgb(28, 28, 28);
+    margin:0 auto;
+    font-family: "Dank Mono", ui-monospace, monospace;
     /*padding: 0 150px;*/
-    /*margin: 0;*/
     /*font-family: sans-serif;*/
     /*font-size: 16px;*/
 }
 
-.logo-row{
+.logo-row {
     text-align: center;
     display : block;
     margin : 0 auto;
+}
+
+.logo-corner {
+    text-align: left;
+    display : block;
+    margin : 0 auto;
+    position: absolute;
+    left: 90%;
+    top: 50px;
 }
 
 .logo {
@@ -18,8 +28,14 @@ body {
     text-align: center;
 }
 
+.logo-small {
+    width: 40px;
+    height: 30px;
+    text-align: center;
+}
+
 h1 {
-    font-size: 6vmin;
+    font-size: 4vmin;
     line-height: 1.3;
     font-family: "Dank Mono", ui-monospace, monospace;
     background: linear-gradient(
@@ -50,17 +66,14 @@ h3 {
     text-align: center;
 }
 
-label {
-    font-size: 3vmin;
-    line-height: 1.1;
+h4 {
+    font-size: 1.5vmin;
+    line-height: 1;
     font-family: "Dank Mono", ui-monospace, monospace;
-    background: linear-gradient(
-            to right, #6ce972, #ccff33
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #fff;
     text-align: center;
 }
+
 
 html {
     height: 100%;
@@ -116,6 +129,14 @@ body {
     color: #fff;
     pointer-events: none;
     transition: .5s;
+    line-height: 1.1;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    background: linear-gradient(
+            to right, #6ce972, #ccff33
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
 }
 
 .login-box .user-box input:focus ~ label,
@@ -228,4 +249,110 @@ body {
     50%,100% {
         bottom: 100%;
     }
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.header-button {
+    margin: 0 auto;
+    width: 10%;
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    cursor: pointer;
+    height: 40px;
+    display : block;
+    position: absolute;
+    top: 45px;
+
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.profile {
+    left: 75%;
+}
+
+.for-u {
+    left: 63%;
+}
+
+.header-button:hover {
+    background-position: 100% 0;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.header-button:focus {
+    outline: none;
+}
+
+.header-button {
+    background-image: linear-gradient(to right, #5afe7a, #3cba92, #5afe7a, #2bb673);
+    box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
+}
+
+.search-box {
+    position: absolute;
+    top: 5%;
+    left: 15%;
+    width: 300px;
+    height: 1%;
+    padding: 20px;
+    background-image: linear-gradient(to right, #2bb673, #2bb673, #5afe7a, #5afe7a);
+    box-shadow: 0 10px 15px rgba(23, 168, 108, 0.35);
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+.search-box .user-box {
+    position: relative;
+}
+
+.search-box .user-box input {
+    position: absolute;
+    width: 100%;
+    padding: 8px 0;
+    height: 5%;
+    top: 5%;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+.search-box .user-box label {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+    line-height: 1.1;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    text-align: center;
+}
+
+.search-box .user-box input:focus ~ label,
+.search-box .user-box input:valid ~ label {
+    top: -30px;
+    left: 0;
+    color: #fff;
+    font-size: 12px;
 }
