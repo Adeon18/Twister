@@ -13,8 +13,8 @@ body {
 }
 
 .logo {
-    width: 200px;
-    height: 160px;
+    width: 80px;
+    height: 60px;
     text-align: center;
 }
 
@@ -36,6 +36,18 @@ h2 {
     font-family: "Dank Mono", ui-monospace, monospace;
     background: linear-gradient(
             to right, #6ce972, #ccff33
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
+h3 {
+    font-size: 2vmin;
+    line-height: 0.8;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    background: linear-gradient(
+            to right, #80ff90, #ccff33
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
