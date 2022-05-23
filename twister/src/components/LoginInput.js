@@ -4,14 +4,14 @@ const LoginInputForm = ({ login, error}) => {
 
     const [data, setData] = useState({login: "", password: ""});
 
-    const submitHandler = ev => {
+    const submitLoginHandler = ev => {
         ev.preventDefault();
 
         login(data);
     }
 
     return (
-        <form onSubmit={submitHandler}>
+        <form onSubmit={submitLoginHandler}>
             <div className="inner-form">
                 <h2>Login</h2>
                 
