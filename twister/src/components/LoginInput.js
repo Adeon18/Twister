@@ -1,13 +1,17 @@
 import { useState } from "react"
 
-const LoginInputForm = ({ login, error}) => {
+const LoginInputForm = ({ login, register, error}) => {
 
     const [data, setData] = useState({login: "", password: ""});
 
     const submitLoginHandler = ev => {
         ev.preventDefault();
 
-        login(data);
+        if (ev.nativeEvent.submitter.name === "login") {
+            login(data);
+        } else if (ev.nativeEvent.submitter.name === "register"){
+            register(data);
+        }
     }
 
     return (
@@ -26,7 +30,8 @@ const LoginInputForm = ({ login, error}) => {
                     <label htmlFor="password">Password:</label>
                     <input type="text" name="password" id="password" onChange={ev => setData({...data, password: ev.target.value})} value={data.password}/>
                 </div>
-                <input type="submit" value="Log In"></input>
+                <input type="submit" name="login" value="Log In"></input>
+                <input type="submit" name="register" value="Register"></input>
             </div>
         </form>
     )

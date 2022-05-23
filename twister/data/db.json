@@ -1,25 +1,18 @@
 {
   "users": [
     {
-      "login": "1234444",
-      "password": "11111",
+      "login": "die",
+      "password": "please",
       "tweets": [],
       "userId": "api",
       "id": 1
     },
     {
-      "login": "543268749506",
-      "password": "11111",
+      "login": "die1",
+      "password": "123",
       "tweets": [],
       "userId": "api",
       "id": 2
-    },
-    {
-      "login": "dafoigtwpokoneogewjbgwjbjnb;kjoneonbbwou",
-      "password": "pjdfshubkmsl;l,sqhfvb,",
-      "tweets": [],
-      "userId": "api",
-      "id": 3
     }
   ]
 }

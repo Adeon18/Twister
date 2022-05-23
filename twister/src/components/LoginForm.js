@@ -13,22 +13,50 @@ const LoginForm = () => {
         });
     }, [])
 
-    const onLoginHandler = data => {
-        console.log(data);
+    const areCredentialsValid = data => {
+        for (const entry of userData) {
+            if (entry.login === data.login) {
+                if (entry.password === data.password) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-        if (data.login === "die" && data.password === "please") {
-            console.log("Here should be login");
-            setUser({login: data.login});
+    const canRegister = data => {
+        for (const entry of userData) {
+            if (entry.login === data.login) {
+                return false
+            }
+        }
+        return true;
+    }
+
+    const onLoginHandler = data => {
+        if (areCredentialsValid(data)) {
+            console.log("Here should be login code.");
+            setError("");
         } else {
+            setError("Wrong Credentials!");
+        }
+    }
+
+    const onRegisterHandler = data => {
+        if (canRegister(data)) {
             const singleEntry = {"login": data.login, "password": data.password, "tweets": []};
             setUserData(userData => ([...userData, singleEntry]));
+            setError("");
+            // Fetch data
             fetch("api/users", {method: "POST", body: JSON.stringify(singleEntry), headers: {"content-type": "application/json"}});
+        } else {
+            setError("Login already taken!");
         }
     }
 
     return (
         <div className="login-form">
-            <LoginInput login={onLoginHandler} error={error}/>
+            <LoginInput login={onLoginHandler} register={onRegisterHandler} error={error}/>
         </div>
     );
 }
