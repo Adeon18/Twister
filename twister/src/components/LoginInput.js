@@ -28,7 +28,7 @@ const LoginInputForm = ({ login, register, error}) => {
 
                 <div className="form-input">
                     <label htmlFor="password">Password:</label>
-                    <input type="text" name="password" id="password" onChange={ev => setData({...data, password: ev.target.value})} value={data.password}/>
+                    <input type="password" name="password" id="password" onChange={ev => setData({...data, password: ev.target.value})} value={data.password}/>
                 </div>
                 <input type="submit" name="login" value="Log In"></input>
                 <input type="submit" name="register" value="Register"></input>
