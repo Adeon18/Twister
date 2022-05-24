@@ -1,12 +1,3 @@
-body {
-    background-color: rgb(28, 28, 28);
-    margin:0 auto;
-    font-family: "Dank Mono", ui-monospace, monospace;
-    /*padding: 0 150px;*/
-    /*font-family: sans-serif;*/
-    /*font-size: 16px;*/
-}
-
 .logo-row {
     text-align: center;
     display : block;
@@ -59,7 +50,7 @@ h3 {
     line-height: 0.8;
     font-family: "Dank Mono", ui-monospace, monospace;
     background: linear-gradient(
-            to right, #80ff90, #ccff33
+            to right, #80ff90, #80ff90, #ccff33, #ccff33
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -74,10 +65,10 @@ h4 {
     text-align: center;
 }
 
-
 html {
     height: 100%;
 }
+
 body {
     margin:0;
     padding:0;
@@ -85,223 +76,40 @@ body {
     background: linear-gradient(#1d2821, #1d2128);
 }
 
-.login-box {
+.log-out {
+    left: 75%;
+}
+
+.header-button {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 400px;
-    padding: 40px;
-    transform: translate(-50%, -50%);
-    background: rgba(0,0,0,.5);
-    box-sizing: border-box;
-    box-shadow: 0 15px 25px rgba(0,0,0,.6);
-    border-radius: 10px;
-}
+    top: 45px;
+    display: inline-block;
+    padding: 10px 15px;
 
-.login-box h2 {
-    margin: 0 0 30px;
-    padding: 0;
+    font-size: 12px;
     color: #fff;
-    text-align: center;
-}
-
-.login-box .user-box {
-    position: relative;
-}
-
-.login-box .user-box input {
-    width: 100%;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #fff;
-    margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid #fff;
-    outline: none;
-    background: transparent;
-}
-.login-box .user-box label {
-    position: absolute;
-    top:0;
-    left: 0;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #fff;
-    pointer-events: none;
-    transition: .5s;
     line-height: 1.1;
     font-family: "Dank Mono", ui-monospace, monospace;
-    background: linear-gradient(
-            to right, #6ce972, #ccff33
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-align: center;
-}
+    background: linear-gradient(#1d2821, #1d2128);
+    box-shadow: 0 10px 15px rgb(47, 104, 38, 0.60);
 
-.login-box .user-box input:focus ~ label,
-.login-box .user-box input:valid ~ label {
-    top: -20px;
-    left: 0;
-    color: #ccff33;
-    font-size: 12px;
-}
-
-.login-box form a {
-    position: relative;
-    display: inline-block;
-    padding: 10px 20px;
-    color: #ffffff;
-    font-size: 16px;
     text-decoration: none;
     text-transform: uppercase;
     overflow: hidden;
     transition: .5s;
-    margin-top: 40px;
-    letter-spacing: 4px
-}
-
-.login-box a:hover {
-    background: #21510f;
-    color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #56e304,
-    0 0 25px #56e304,
-    0 0 50px #56e304,
-    0 0 100px #56e304;
-}
-
-.login-box a span {
-    position: absolute;
-    display: block;
-}
-
-.login-box a span:nth-child(1) {
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #56e304);
-    animation: btn-anim1 1s linear infinite;
-}
-
-@keyframes btn-anim1 {
-    0% {
-        left: -100%;
-    }
-    50%,100% {
-        left: 100%;
-    }
-}
-
-.login-box a span:nth-child(2) {
-    top: -100%;
-    right: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(180deg, transparent, #56e304);
-    animation: btn-anim2 1s linear infinite;
-    animation-delay: .25s
-}
-
-@keyframes btn-anim2 {
-    0% {
-        top: -100%;
-    }
-    50%,100% {
-        top: 100%;
-    }
-}
-
-.login-box a span:nth-child(3) {
-    bottom: 0;
-    right: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(270deg, transparent, #35ff18);
-    animation: btn-anim3 1s linear infinite;
-    animation-delay: .5s
-}
-
-@keyframes btn-anim3 {
-    0% {
-        right: -100%;
-    }
-    50%,100% {
-        right: 100%;
-    }
-}
-
-.login-box a span:nth-child(4) {
-    bottom: -100%;
-    left: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(360deg, transparent, #00ff3c);
-    animation: btn-anim4 1s linear infinite;
-    animation-delay: .75s
-}
-
-@keyframes btn-anim4 {
-    0% {
-        bottom: -100%;
-    }
-    50%,100% {
-        bottom: 100%;
-    }
-}
-
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.header-button {
-    margin: 0 auto;
-    width: 10%;
-    font-size: 15px;
-    font-weight: 500;
-    color: #fff;
-    font-family: "Dank Mono", ui-monospace, monospace;
-    cursor: pointer;
-    height: 40px;
-    display : block;
-    position: absolute;
-    top: 45px;
-
-    text-align:center;
-    border: none;
-    background-size: 300% 100%;
-
-    border-radius: 50px;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
-}
-
-.profile {
-    left: 75%;
-}
-
-.for-u {
-    left: 63%;
+    letter-spacing: 4px;
+    border-radius: 12px;
+    border-color: #6ce972;
 }
 
 .header-button:hover {
-    background-position: 100% 0;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
-}
-
-.header-button:focus {
-    outline: none;
-}
-
-.header-button {
-    background-image: linear-gradient(to right, #5afe7a, #3cba92, #5afe7a, #2bb673);
-    box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
+    background: linear-gradient(#304538, #2b3834);
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #56e304,
+    0 0 8px #56e304,
+    0 0 25px #56e304,
+    0 0 60px #56e304;
 }
 
 .search-box {
@@ -311,8 +119,8 @@ body {
     width: 300px;
     height: 1%;
     padding: 20px;
-    background-image: linear-gradient(to right, #2bb673, #2bb673, #5afe7a, #5afe7a);
-    box-shadow: 0 10px 15px rgba(23, 168, 108, 0.35);
+    background: linear-gradient(#1d2821, #1d2128);
+    box-shadow: 0 10px 15px rgb(47, 104, 38, 0.60);
     box-sizing: border-box;
     border-radius: 20px;
 }
@@ -331,10 +139,11 @@ body {
     color: #fff;
     margin-bottom: 30px;
     border: none;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #6ce972;
     outline: none;
     background: transparent;
 }
+
 .search-box .user-box label {
     position: absolute;
     top: -20px;
@@ -355,4 +164,203 @@ body {
     left: 0;
     color: #fff;
     font-size: 12px;
+}
+
+.search-box input[type=submit] {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    display: inline-block;
+    padding: 10px 20px;
+
+    font-size: 16px;
+    color: #fff;
+    line-height: 1;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    background: linear-gradient(#1d2821, #1d2128);
+    box-shadow: 0 10px 15px rgb(47, 104, 38, 0.60);
+
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    letter-spacing: 4px;
+    border-radius: 20px;
+    border-color: #6ce972;
+}
+
+.search-box input[type=submit]:hover {
+    background: linear-gradient(#304538, #2b3834);
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #56e304,
+    0 0 8px #56e304,
+    0 0 25px #56e304,
+    0 0 60px #56e304;
+}
+
+.post {
+    position: absolute;
+    left: 50%;
+    width: 850px;
+    padding: 70px;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+    margin-top: 125px;
+}
+
+.post .header-info label {
+    position: absolute;
+    top: 10px;
+    left: 30px;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+    line-height: 1.1;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    text-align: center;
+}
+
+.post .header-info p {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+    line-height: 1.1;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    text-align: left;
+}
+
+.post-image {
+    text-align: left;
+    display : block;
+    margin : 0 auto;
+    position: relative;
+    top: 40px;
+    left: 38%;
+}
+
+/*TODO:*/
+.post-img img {
+    width: 150px;
+    height: 150px;
+    /*background: linear-gradient(#1d2821, #1d2128);*/
+    background: white;
+}
+
+.bottom-section button {
+    top: 40px;
+    padding-top: 5px;
+    position: relative;
+    margin-right: 15px;
+    left: 90%;
+    display: inline-block;
+    background: linear-gradient(#1d2821, #1d2128);
+    box-shadow: 0 10px 15px rgb(47, 104, 38, 0.20);
+
+    overflow: hidden;
+    transition: .5s;
+    border-radius: 12px;
+    border-color: #6ce972;
+}
+
+.bottom-section button:hover {
+    background: linear-gradient(#304538, #2b3834);
+    border-radius: 5px;
+    box-shadow: 0 0 5px #56e304,
+    0 0 8px #56e304,
+    0 0 25px #56e304,
+    0 0 60px #56e304;
+}
+
+.bottom-section img {
+    width: 20px;
+    height: 20px;
+}
+
+.comment-box {
+    top: 73px;
+    position: relative;
+    left: 45%;
+    width: 250px;
+    height: 30px;
+    background: linear-gradient(#1d2821, #1d2128);
+    box-shadow: 0 10px 15px rgb(47, 104, 38, 0.20);
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+.comment-box input[type=text] {
+    position: absolute;
+    margin-left: 5%;
+    width: 210px;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-bottom: 1px solid #6ce972;
+    outline: none;
+    background: transparent;
+}
+
+.comment-box label {
+    position: relative;
+    margin-left: 7%;
+    font-size: 14px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+    line-height: 1.1;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    text-align: center;
+
+    background: linear-gradient(
+            to right, #80ff90, #80ff90, #ccff33, #ccff33
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.comment-box input:not(:placeholder-shown) ~ label {
+    font-size: 0px;
+}
+
+.comment-box input[type=submit] {
+    position: absolute;
+    left: 100%;
+    display: inline-block;
+    padding: 7px 7px;
+
+    font-size: 12px;
+    color: #fff;
+    line-height: 1;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    background: linear-gradient(#1d2821, #1d2128);
+    box-shadow: 0 10px 15px rgb(47, 104, 38, 0.20);
+
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    letter-spacing: 4px;
+    border-radius: 20px;
+    border-color: #6ce972;
+}
+
+.comment-box input[type=submit]:hover {
+    background: linear-gradient(#304538, #2b3834);
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #56e304,
+    0 0 8px #56e304,
+    0 0 25px #56e304,
+    0 0 60px #56e304;
 }
