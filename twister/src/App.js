@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import './components/LoginForm.css'
 import LoginInput from './components/LoginInput';
 import LoginForm from './components/LoginForm';
 import { useState } from 'react';
