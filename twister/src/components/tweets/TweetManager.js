@@ -1,8 +1,8 @@
 import { useState } from "react";
-import NewTweet from "./NewTweet";
-import Tweet from "./tweet";
+import TweetField from "./TweetField";
+import Tweet from "./Tweet";
 
-const Tweets = () => {
+const TweetManager = () => {
     const [tweets, setTweets] = useState([]);
 
     const onTweetInpSend = (value) => {
@@ -25,7 +25,7 @@ const Tweets = () => {
     }
 
     return <div>
-        <NewTweet onTweetInpSend={onTweetInpSend} />
+        <TweetField onTweetInpSend={onTweetInpSend} />
         {
             tweets.map((tweet) => (
                 <Tweet key={tweet.id} dislike={() => onDislike(tweet.id)} remove={() => onRemove(tweet.id)} tweet={tweet} />
@@ -34,4 +34,4 @@ const Tweets = () => {
     </div>
 }
 
-export default Tweets;
+export default TweetManager;

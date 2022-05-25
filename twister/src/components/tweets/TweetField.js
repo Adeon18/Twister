@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const NewTweet = ({ onTweetInpSend }) => {
+const TweetField = ({ onTweetInpSend }) => {
     const [tweetText, setTweetText] = useState('');
 
     const sendTweet = () => {
@@ -15,4 +15,4 @@ const NewTweet = ({ onTweetInpSend }) => {
     </div>
 }
 
-export default NewTweet;
+export default TweetField;
