@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react"
 import LoginInput from "./LoginInput"
+import CryptoJS from "crypto-js"
 
 const LoginForm = () => {
+
+    let SHA256 = require("crypto-js/sha256");
+
     const [userData, setUserData] = useState([])
-    const [user, setUser] = useState({login: ""})
+    const [user, setUser] = useState({ login: "" })
     const [error, setError] = useState("");
 
-    useEffect( () => {
+    useEffect(() => {
         console.log("made request..");
-        fetch("http://localhost:3001/users").then( userData => userData.json() ).then(userData => {
+        fetch("http://localhost:3001/users").then(userData => userData.json()).then(userData => {
             setUserData(userData);
         });
     }, [])
@@ -16,7 +20,7 @@ const LoginForm = () => {
     const areCredentialsValid = data => {
         for (const entry of userData) {
             if (entry.login === data.login) {
-                if (entry.password === data.password) {
+                if (JSON.stringify(SHA256(data.password).words) === entry.password) {
                     return true;
                 }
             }
@@ -44,11 +48,11 @@ const LoginForm = () => {
 
     const onRegisterHandler = data => {
         if (canRegister(data)) {
-            const singleEntry = {"login": data.login, "password": data.password, "tweets": []};
+            const singleEntry = { "login": data.login, "password": JSON.stringify(SHA256(data.password).words), "tweets": [] };
             setUserData(userData => ([...userData, singleEntry]));
             setError("");
             // Fetch data
-            fetch("http://localhost:3001/users", {method: "POST", body: JSON.stringify(singleEntry), headers: {"content-type": "application/json"}});
+            fetch("http://localhost:3001/users", { method: "POST", body: JSON.stringify(singleEntry), headers: { "content-type": "application/json" } });
         } else {
             setError("Login already taken!");
         }
@@ -56,7 +60,7 @@ const LoginForm = () => {
 
     return (
         <div className="login-form">
-            <LoginInput Login={onLoginHandler} Register={onRegisterHandler} error={error}/>
+            <LoginInput Login={onLoginHandler} Register={onRegisterHandler} error={error} />
         </div>
     );
 }
