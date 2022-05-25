@@ -1,18 +1,21 @@
 import { useState } from "react"
 
-const LoginInputForm = ({ login, register, error}) => {
+const LoginInputForm = ({ Login, Register, error}) => {
 
-    const [data, setData] = useState({login: "", password: ""});
+    const [login, setLogin] = useState("");
+    const [password, setPassword] = useState("");
 
     const submitLoginHandler = ev => {
         ev.preventDefault();
-
-        if (ev.nativeEvent.submitter.name === "login") {
-            login(data);
-        } else if (ev.nativeEvent.submitter.name === "register"){
-            register(data);
-        }
+        Login({login: login, password: password});
     }
+
+
+    const submitRegisterHandler = ev => {
+        ev.preventDefault();
+        Register({login: login, password: password});
+    }
+
 
     return (
         <form onSubmit={submitLoginHandler}>
@@ -23,15 +26,15 @@ const LoginInputForm = ({ login, register, error}) => {
 
                 <div className="form-input">
                     <label htmlFor="login">Login:</label>
-                    <input type="text" name="login" id="login" onChange={ev => setData({...data, login: ev.target.value})} value={data.login}/>
+                    <input type="text" name="login" id="login" onChange={ev => setLogin(ev.target.value)} value={login}/>
                 </div>
 
                 <div className="form-input">
                     <label htmlFor="password">Password:</label>
-                    <input type="password" name="password" id="password" onChange={ev => setData({...data, password: ev.target.value})} value={data.password}/>
+                    <input type="password" name="password" id="password" onChange={ev => setPassword(ev.target.value)} value={password}/>
                 </div>
                 <input type="submit" name="login" value="Log In"></input>
-                <input type="submit" name="register" value="Register"></input>
+                <button onClick={submitRegisterHandler} name="register">Register</button>
             </div>
         </form>
     )

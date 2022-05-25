@@ -8,7 +8,7 @@ const LoginForm = () => {
 
     useEffect( () => {
         console.log("made request..");
-        fetch("api/users").then( userData => userData.json() ).then(userData => {
+        fetch("http://localhost:3001/users").then( userData => userData.json() ).then(userData => {
             setUserData(userData);
         });
     }, [])
@@ -48,7 +48,7 @@ const LoginForm = () => {
             setUserData(userData => ([...userData, singleEntry]));
             setError("");
             // Fetch data
-            fetch("api/users", {method: "POST", body: JSON.stringify(singleEntry), headers: {"content-type": "application/json"}});
+            fetch("http://localhost:3001/users", {method: "POST", body: JSON.stringify(singleEntry), headers: {"content-type": "application/json"}});
         } else {
             setError("Login already taken!");
         }
@@ -56,7 +56,7 @@ const LoginForm = () => {
 
     return (
         <div className="login-form">
-            <LoginInput login={onLoginHandler} register={onRegisterHandler} error={error}/>
+            <LoginInput Login={onLoginHandler} Register={onRegisterHandler} error={error}/>
         </div>
     );
 }

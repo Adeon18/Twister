@@ -13,6 +13,18 @@
       "tweets": [],
       "userId": "api",
       "id": 2
+    },
+    {
+      "login": "112223",
+      "password": "11111",
+      "tweets": [],
+      "id": 3
+    },
+    {
+      "login": "Adeon18",
+      "password": "qqqqq",
+      "tweets": [],
+      "id": 4
     }
   ]
 }

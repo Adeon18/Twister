@@ -108,7 +108,7 @@ body {
 .inner-form .error {
     margin: 0 0 30px;
     padding: 0;
-    color: #ee6055;
+    color:register #ee6055;
     text-align: center;
 }
 
@@ -169,6 +169,38 @@ body {
 }
 
 .inner-form input[type=submit]:hover {
+    background: linear-gradient(#304538, #2b3834);
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #56e304,
+    0 0 8px #56e304,
+    0 0 25px #56e304,
+    0 0 60px #56e304;
+}
+
+.inner-form button[name=register] {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.1;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    background: linear-gradient(#1d2821, #1d2128);
+
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 35px;
+    margin-left: 15px;
+    letter-spacing: 4px;
+    border-radius: 15px;
+    border-color: #6ce972;
+}
+
+.inner-form button[name=register]:hover {
     background: linear-gradient(#304538, #2b3834);
     color: #fff;
     border-radius: 5px;
