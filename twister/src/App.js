@@ -1,10 +1,10 @@
 import './App.css';
-import Tweets from './tweets';
+import TweetManager from './components/tweets/TweetManager';
 
 function App() {
   return (
     <div className="App">
-      <Tweets />
+      <TweetManager />
     </div>
   );
 }
