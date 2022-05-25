@@ -1,4 +1,4 @@
-const Tweet = ({ tweet, remove, dislike, like }) => {
+const Tweet = ({tweet, remove, dislike, like}) => {
     return <div>
         <span>{tweet.value}</span>
         <button onClick={() => remove()}>Delete</button>
