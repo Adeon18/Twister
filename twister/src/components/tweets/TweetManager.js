@@ -2,6 +2,8 @@ import {useEffect, useState} from "react";
 import TweetField from "./TweetField";
 import Tweet from "./Tweet";
 
+
+// TODO: get all the scary functions as far away as possible
 const getTags = (value) => {
     let tags = [];
     let lastInd = 0;
@@ -122,13 +124,6 @@ const TweetManager = () => {
             })
             setTweets((existingTweets) => existingTweets.filter(tweet => tweet.id !== id))
         })
-        // findTweet(existingTweets, id);
-        // let tags = getTags(tweet.value)
-        // tags.forEach(t => {
-        //
-        // })
-
-
         fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
     }
 
