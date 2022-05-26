@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import TweetField from "./TweetField";
 import Tweet from "./Tweet";
+import {useLocation} from "react-router";
 
 
 // TODO: get all the scary functions as far away as possible
@@ -86,7 +87,7 @@ const hash = (value) => {
 
 const TweetManager = () => {
     const [tweets, setTweets] = useState([]);
-
+    const location = useLocation();
     useEffect(() => {
         fetch('http://localhost:3001/tweets')
             .then(response => response.json())
@@ -94,6 +95,7 @@ const TweetManager = () => {
     }, [])
 
     const onTweetSend = (value) => {
+        console.log(location);
         // dont tweet to small tweets (and empty tweets)
         if (value.length < 2) {
             return
