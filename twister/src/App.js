@@ -8,9 +8,16 @@ import TweetManager from './components/tweets/TweetManager';
 import SearchManager from './components/search/SearchManager';
 
 function App() {
+
+  const [currentUserData, setCurrentUserData] = useState({ login: "", id: -1});
+
+  const updateUserData = data => {
+    setCurrentUserData(data);
+  }
+
   return (
     <div className="App">
-      <LoginForm/>
+      <LoginForm updateCurrentUserData={updateUserData}/>
     </div>
   );
 }
