@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
+    "crypto-js": "^4.1.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router": "^6.3.0",

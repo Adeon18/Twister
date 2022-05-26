@@ -1,12 +1,16 @@
 import {useEffect, useState} from "react";
 import TweetField from "./TweetField";
 import Tweet from "./Tweet";
+
+
 import { addTagsJson, removeTagsJson, getTags } from "../../TagsHelper"
+import {useLocation} from "react-router";
+import SearchField from "../search/SearchField";
 
 
 const TweetManager = () => {
     const [tweets, setTweets] = useState([]);
-
+    const location = useLocation();
     useEffect(() => {
         fetch('http://localhost:3001/tweets')
             .then(response => response.json())
@@ -14,6 +18,7 @@ const TweetManager = () => {
     }, [])
 
     const onTweetSend = (value) => {
+        console.log(location);
         // dont tweet to small tweets (and empty tweets)
         if (value.length < 2) {
             return
@@ -81,6 +86,7 @@ const TweetManager = () => {
 
     return <div>
         <TweetField onTweetSend={onTweetSend}/>
+        <SearchField/>
         {
             mapTweets(tweets)
         }

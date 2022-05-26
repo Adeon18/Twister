@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react"
 import LoginInput from "./LoginInput"
+import {useNavigate} from "react-router";
 
 
-const LoginForm = () => {
+const LoginForm = ( {updateCurrentUserData} ) => {
 
     let SHA256 = require("crypto-js/sha256");
 
     const [userData, setUserData] = useState([])
-    const [currentUserData, setCurrentUserData] = useState({ login: "", id: -1})
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const MIN_LOGIN_LENGTH = 3;
     const MIN_PASSWORD_LENGTH = 6;
@@ -25,7 +26,7 @@ const LoginForm = () => {
         for (const entry of userData) {
             if (entry.login === data.login) {
                 if (JSON.stringify(SHA256(data.password).words) === entry.password) {
-                    setCurrentUserData({login: entry.login, id: entry.id});
+                    updateCurrentUserData({login: entry.login, id: entry.id});
                     return true;
                 }
             }
@@ -64,6 +65,7 @@ const LoginForm = () => {
     const onLoginHandler = data => {
         if (checkAndSetCredentials(data)) {
             setError("");
+            navigate("/");
         } else {
             setError("Wrong Credentials!");
         }
