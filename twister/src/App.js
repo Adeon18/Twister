@@ -10,7 +10,7 @@ import SearchManager from './components/search/SearchManager';
 function App() {
   return (
     <div className="App">
-      <LoginForm/>
+      <SearchManager/>
     </div>
   );
 }
