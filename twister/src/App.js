@@ -1,9 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
+import './styles/styles.css'
 import './styles/LoginForm.css'
-import LoginInput from './components/login/LoginInput';
-import LoginForm from './components/login/LoginForm';
 import { useState } from 'react';
+import LoginForm from './components/login/LoginForm';
+import LoginInput from './components/login/LoginInput';
+import TweetManager from './components/tweets/TweetManager';
+import SearchManager from './components/search/SearchManager';
 
 function App() {
   return (
