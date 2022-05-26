@@ -10,6 +10,9 @@ const LoginForm = () => {
     const [user, setUser] = useState({ login: "" })
     const [error, setError] = useState("");
 
+    const MIN_LOGIN_LENGTH = 3;
+    const MIN_PASSWORD_LENGTH = 6;
+
     useEffect(() => {
         console.log("made request..");
         fetch("http://localhost:3001/users").then(userData => userData.json()).then(userData => {
@@ -29,9 +32,28 @@ const LoginForm = () => {
     }
 
     const canRegister = data => {
+        if (!areInputsValid(data)) {
+            return false;
+        }
+
         for (const entry of userData) {
             if (entry.login === data.login) {
-                return false
+                setError("Login already taken!");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Set the errors if bad input and return false
+    const areInputsValid = data => {
+        if (data.login.length < MIN_LOGIN_LENGTH) {
+            setError("Login too short - needs more than " + MIN_LOGIN_LENGTH + " characters.");
+            return false;
+        } else {
+            if (data.password.length < MIN_PASSWORD_LENGTH) {
+                setError("Password too short - needs more than " + MIN_PASSWORD_LENGTH + " characters.");
+                return false;
             }
         }
         return true;
@@ -48,13 +70,11 @@ const LoginForm = () => {
 
     const onRegisterHandler = data => {
         if (canRegister(data)) {
+            setError("");
             const singleEntry = { "login": data.login, "password": JSON.stringify(SHA256(data.password).words), "tweets": [] };
             setUserData(userData => ([...userData, singleEntry]));
-            setError("");
             // Fetch data
             fetch("http://localhost:3001/users", { method: "POST", body: JSON.stringify(singleEntry), headers: { "content-type": "application/json" } });
-        } else {
-            setError("Login already taken!");
         }
     }
 
