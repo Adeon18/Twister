@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
 import LoginInput from "./LoginInput"
-import CryptoJS from "crypto-js"
+
 
 const LoginForm = () => {
 
     let SHA256 = require("crypto-js/sha256");
 
     const [userData, setUserData] = useState([])
-    const [user, setUser] = useState({ login: "" })
+    const [currentUserData, setCurrentUserData] = useState({ login: "", id: -1})
     const [error, setError] = useState("");
 
     const MIN_LOGIN_LENGTH = 3;
@@ -20,10 +20,12 @@ const LoginForm = () => {
         });
     }, [])
 
-    const areCredentialsValid = data => {
+    // Check for correctness of credentials and set them.
+    const checkAndSetCredentials = data => {
         for (const entry of userData) {
             if (entry.login === data.login) {
                 if (JSON.stringify(SHA256(data.password).words) === entry.password) {
+                    setCurrentUserData({login: entry.login, id: entry.id});
                     return true;
                 }
             }
@@ -60,8 +62,7 @@ const LoginForm = () => {
     }
 
     const onLoginHandler = data => {
-        if (areCredentialsValid(data)) {
-            console.log("Here should be login code.");
+        if (checkAndSetCredentials(data)) {
             setError("");
         } else {
             setError("Wrong Credentials!");
