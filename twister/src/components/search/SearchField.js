@@ -2,13 +2,8 @@ import { useState } from "react";
 import {Link} from "react-router-dom";
 import {hash} from "../../TagsHelper";
 
-const SearchField = ({ onSearch }) => {
+const SearchField = ({}) => {
     const [searchTag, setSearchText] = useState('');
-
-    const search = () => {
-        onSearch(searchTag);
-        setSearchText('');
-    }
 
 
     return <div className={".search-box"}>
