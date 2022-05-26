@@ -9,7 +9,7 @@ const TweetField = ({onTweetSend}) => {
     }
 
     //TODO: make max len a constant
-    return <div>
+    return <div className={".tweet-box"}>
         <input maxLength={100} value={tweetText} onChange={(ev) => setTweetText(ev.target.value)}></input>
         <button onClick={e => sendTweet()}>Tweet</button>
     </div>
