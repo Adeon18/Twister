@@ -1,29 +1,29 @@
 # Twister
 
 
-#### Description
+### Description
 _Placeholder_
 ****
 
-#### Requirements
+### Requirements
 _Here are the required packages to run **Twister**_:
 - json-server
 - crypto-js
 ****
 
-#### Functionality
+### Functionality
 _Placeholder_
 ****
 
-#### How it looks
+### How it looks
 _Placeholder_
 ****
 
-#### Contributing
+### Contributing
 _Placeholder_
 ****
 
-#### Authors
+### Authors
 _Placeholder_
 ****
 
