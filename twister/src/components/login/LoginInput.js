@@ -21,7 +21,7 @@ const LoginInputForm = ({ Login, Register, error }) => {
             <div className="inner-form">
                 <h2>Login</h2>
 
-                {(error != "") ? (<div className="error">{error}</div>) : ""}
+                {(error !== "") ? (<div className="error">{error}</div>) : ""}
 
                 <div className="form-input">
                     <label htmlFor="login">Login:</label>
