@@ -4,39 +4,35 @@ import {findTweet, getTags, removeTagsJson} from "../../TagsHelper"
 import Tweet from "../tweets/Tweet";
 import {useLocation} from "react-router";
 
+const findTag = (array, tag) => {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i].id === parseInt(tag)) {
+            return i
+        }
+    }
+    return -1;
+}
+
 const SearchManager = () => {
     const [tagTweets, setTagTweets] = useState([]);
-
-    const findTag = (array, tag) => {
-        for (let i = 0; i < array.length; i++) {
-            if (array[i].id === parseInt(tag)) {
-                return i
+    let tagTweetsID = [];
+    const link = useLocation();
+    const tag = link.pathname.substring(8, link.pathname.length);
+    fetch('http://localhost:3001/tags/').then(response => response.json()).then(tags => {
+        let tagInd = findTag(tags, tag);
+        if (tagInd >= 0) {
+            tagTweetsID = tags[tagInd]['tweets'];
+            for (let i = 0; i < tagTweetsID.length; i++) {
+                fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
+                    let tweetInd = findTweet(tweets, tagTweetsID[i]);
+                    setTagTweets((prev_state) => ([...prev_state, tweets[tweetInd]]));
+                })
             }
+        } else {
+            console.log("No results found")
         }
-        return -1;
-    }
+    })
 
-    const OnSearch = () => {
-        let tagTweetsID = [];
-        const link = useLocation();
-        const tag = link.pathname.substring(8, link.pathname.length);
-        console.log(tag)
-        fetch('http://localhost:3001/tags/').then(response => response.json()).then(tags => {
-            // console.log(tags)
-            let tagInd = findTag(tags, tag);
-            if (tagInd >= 0) {
-                tagTweetsID = tags[tagInd]['tweets'];
-                for (let i = 0; i < tagTweetsID.length; i++) {
-                    fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
-                        let tweetInd = findTweet(tweets, tagTweetsID[i]);
-                        setTagTweets((prev_state) => ([...prev_state, tweets[tweetInd]]));
-                    })
-                }
-            } else {
-                console.log("No results found")
-            }
-        })
-    }
     const onRemove = (id) => {
         fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
             let tags = getTags(tweet.value);
@@ -63,16 +59,21 @@ const SearchManager = () => {
         });
     }
 
+    const mapTweets = (tweets) => {
+        return (tweets.map((tweet) => (
+            <Tweet key={tweet.id} like={() => onLike(tweet.id, tweet.likes)}
+                   dislike={() => onDislike(tweet.id, tweet.dislikes)} remove={() => onRemove(tweet.id)}
+                   tweet={tweet}/>)
+        ))
+    }
+
     return <div>
-        <SearchField OnSearch={OnSearch}/>
+        <SearchField/>
         {
-            tagTweets.map((tweet) => (
-                <Tweet key={tweet.id} like={() => onLike(tweet.id, tweet.likes)}
-                       dislike={() => onDislike(tweet.id, tweet.dislikes)} remove={() => onRemove(tweet.id)}
-                       tweet={tweet}/>)
-            )
+            mapTweets(tagTweets)
         }
         }
     </div>
+
 }
 export default SearchManager;

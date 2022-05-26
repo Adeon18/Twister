@@ -9,7 +9,7 @@ const SearchField = ({}) => {
     return <div className={".search-box"}>
         <input value={searchTag} onChange={(ev) => setSearchText(ev.target.value)}></input>
         <Link to={'/search/' + hash(searchTag)}>
-            <button>search</button>
+            <button> search</button>
         </Link>
     </div>
 }
