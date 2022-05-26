@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import LoginInput from "./LoginInput"
+import {useNavigate} from "react-router";
 
 
 const LoginForm = ( {updateCurrentUserData} ) => {
@@ -8,6 +9,7 @@ const LoginForm = ( {updateCurrentUserData} ) => {
 
     const [userData, setUserData] = useState([])
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const MIN_LOGIN_LENGTH = 3;
     const MIN_PASSWORD_LENGTH = 6;
@@ -63,6 +65,7 @@ const LoginForm = ( {updateCurrentUserData} ) => {
     const onLoginHandler = data => {
         if (checkAndSetCredentials(data)) {
             setError("");
+            navigate("/");
         } else {
             setError("Wrong Credentials!");
         }
