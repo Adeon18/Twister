@@ -2,12 +2,11 @@ import { useEffect, useState } from "react"
 import LoginInput from "./LoginInput"
 
 
-const LoginForm = () => {
+const LoginForm = ( {updateCurrentUserData} ) => {
 
     let SHA256 = require("crypto-js/sha256");
 
     const [userData, setUserData] = useState([])
-    const [currentUserData, setCurrentUserData] = useState({ login: "", id: -1})
     const [error, setError] = useState("");
 
     const MIN_LOGIN_LENGTH = 3;
@@ -25,7 +24,7 @@ const LoginForm = () => {
         for (const entry of userData) {
             if (entry.login === data.login) {
                 if (JSON.stringify(SHA256(data.password).words) === entry.password) {
-                    setCurrentUserData({login: entry.login, id: entry.id});
+                    updateCurrentUserData({login: entry.login, id: entry.id});
                     return true;
                 }
             }
