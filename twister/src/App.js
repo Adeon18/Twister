@@ -8,9 +8,10 @@ import TweetManager from './components/tweets/TweetManager';
 import SearchManager from './components/search/SearchManager';
 import {Routes} from "react-router";
 import {Route} from "react-router";
+import TweetField from "./components/tweets/TweetField";
+import TweetPage from "./components/tweets/TweetPage";
 
 function App() {
-
     const [currentUserData, setCurrentUserData] = useState({login: "", id: -1});
 
     const updateUserData = data => {
@@ -24,7 +25,9 @@ function App() {
             ):
                 <Routes>
                     <Route path={"/"} element={<TweetManager/>}></Route>
-                    <Route path={"/tweet/:id"}></Route>
+                    <Route path={"/tweet/:id"} element={<TweetPage/>}></Route>
+                    <Route path={"/search"} element={<SearchManager/>}></Route>
+                    <Route path={"/search/:id"} element={<SearchManager/>}></Route>
                 </Routes>
             }
         </div>
