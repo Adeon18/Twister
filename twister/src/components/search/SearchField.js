@@ -1,12 +1,12 @@
 import { useState } from "react";
-import {Link} from "react-router-dom";
-import {hash} from "../../TagsHelper";
+import { Link } from "react-router-dom";
+import { hash } from "../../TagsHelper";
 
-const SearchField = ({}) => {
+const SearchField = ({ }) => {
     const [searchTag, setSearchText] = useState('');
 
 
-    return <div className={".search-box"}>
+    return <div className={"search-box"}>
         <input value={searchTag} onChange={(ev) => setSearchText(ev.target.value)}></input>
         <Link to={'/search/' + hash(searchTag)}>
             <button> search</button>

@@ -1,6 +1,6 @@
-import {useState} from "react";
+import { useState } from "react";
 
-const TweetField = ({onTweetSend}) => {
+const TweetField = ({ onTweetSend }) => {
     const [tweetText, setTweetText] = useState('');
 
     const sendTweet = () => {
@@ -9,10 +9,11 @@ const TweetField = ({onTweetSend}) => {
     }
 
     //TODO: make max len a constant
-    return <div className={".tweet-box"}>
-        <input maxLength={100} value={tweetText} onChange={(ev) => setTweetText(ev.target.value)}></input>
+    return <div className={"search-box tweet-box"
+    }>
+        <textarea maxLength={100} value={tweetText} onChange={(ev) => setTweetText(ev.target.value)}></textarea>
         <button onClick={e => sendTweet()}>Tweet</button>
-    </div>
+    </div >
 }
 
 export default TweetField;

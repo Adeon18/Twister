@@ -113,12 +113,17 @@ body {
 }
 
 .search-box {
-    position: absolute;
+    width: 500px;
+    position: relative;
     top: 5%;
-    left: 15%;
-    width: 300px;
+    /* left: 15%; */
     height: 1%;
     padding: 20px;
+    margin: auto;
+    
+}
+
+.search-box input {
     background: linear-gradient(#1d2821, #1d2128);
     box-shadow: 0 10px 15px rgb(47, 104, 38, 0.60);
     box-sizing: border-box;
@@ -174,7 +179,7 @@ body {
     padding: 10px 20px;
 
     font-size: 16px;
-    color: #fff;
+    color: rgb(235, 18, 18);
     line-height: 1;
     font-family: "Dank Mono", ui-monospace, monospace;
     background: linear-gradient(#1d2821, #1d2128);
@@ -198,6 +203,77 @@ body {
     0 0 25px #56e304,
     0 0 60px #56e304;
 }
+
+.search-box button {
+    /* top: 40px; */
+    float: right;
+    padding-top: 5px;
+    position: relative;
+    margin-right: 15px;
+    display: inline;
+    background: linear-gradient(#1d2821, #1d2128);
+    box-shadow: 0 10px 15px rgb(47, 104, 38, 0.20);
+    color: #56e304;
+    overflow: hidden;
+    transition: .5s;
+    border-radius: 12px;
+    border-color: #6ce972;
+}
+
+.search-box button:hover {
+    background: linear-gradient(#304538, #2b3834);
+    border-radius: 5px;
+    box-shadow: 0 0 5px #56e304,
+    0 0 8px #56e304,
+    0 0 25px #56e304,
+    0 0 60px #56e304;
+}
+
+.search-box input {
+    width: 83%;
+    padding: 10px;
+
+    display: inline-block;
+
+    font-size: 16px;
+    color: #80ff90;
+    line-height: 1;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    background: linear-gradient(#1d2821, #1d2128);
+    box-shadow: 0 10px 15px rgb(47, 104, 38, 0.60);
+
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    letter-spacing: 4px;
+    border-radius: 20px;
+    border-color: #6ce972;
+}
+
+.tweet-box textarea {
+    height: 80px;
+    width: 80%;
+    padding: 10px;
+
+    display: inline-block;
+
+    font-size: 16px;
+    color: #80ff90;
+    line-height: 1;
+    font-family: "Dank Mono", ui-monospace, monospace;
+    background: linear-gradient(#1d2821, #1d2128);
+    box-shadow: 0 10px 15px rgb(47, 104, 38, 0.60);
+
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    letter-spacing: 4px;
+    border-radius: 20px;
+    border-color: #6ce972;
+}
+
 
 .post {
     position: relative;
