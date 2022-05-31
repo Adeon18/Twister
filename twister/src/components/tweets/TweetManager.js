@@ -4,11 +4,9 @@ import Tweet from "./Tweet";
 
 
 import {addTagsJson, removeTagsJson, getTags, findUser} from "../../functions/TagsHelper"
-import {useLocation} from "react-router";
 import SearchField from "../search/SearchField";
 import HomeButton from "../HomeButton/HomeButton";
-
-
+import {useLocation} from "react-router";
 
 
 const TweetManager = ({userData}) => {
@@ -28,7 +26,7 @@ const TweetManager = ({userData}) => {
             return
         }
         let id = new Date().getTime();
-        const newTweet = {value, id: id, likes: 0, dislikes: 0, liked: [], disliked: []};
+        const newTweet = {value, id: id, uid: userId, likes: 0, dislikes: 0, liked: [], disliked: []};
         setTweets((existingTweets) => [...existingTweets, newTweet]);
 
         // extract hashtags
@@ -46,14 +44,17 @@ const TweetManager = ({userData}) => {
     }
 
     const onRemove = async (id) => {
+
         await fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
-            let tags = getTags(tweet.value);
-            tags.forEach(t => {
-                removeTagsJson(t, id);
-            })
-            setTweets((existingTweets) => existingTweets.filter(tweet => tweet.id !== id))
+            if (tweet.uid === userId) {
+                let tags = getTags(tweet.value);
+                tags.forEach(t => {
+                    removeTagsJson(t, id);
+                })
+                setTweets((existingTweets) => existingTweets.filter(tweet => tweet.id !== id))
+                fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
+            }
         })
-        await fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
     }
 
     const onDislike = async (id, dislikes, disliked) => {
@@ -61,14 +62,13 @@ const TweetManager = ({userData}) => {
         if (user_ind >= 0) {
             disliked = disliked.filter(id => id !== userId);
             dislikes -= 1;
-        }
-        else{
+        } else {
             disliked.push(userId);
             dislikes += 1;
         }
         await fetch('http://localhost:3001/tweets/' + id, {
             method: "PATCH",
-            body: JSON.stringify({'dislikes': dislikes, 'disliked':disliked}),
+            body: JSON.stringify({'dislikes': dislikes, 'disliked': disliked}),
             headers: {'content-type': 'application/json'}
         });
         await fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
@@ -81,8 +81,7 @@ const TweetManager = ({userData}) => {
         if (user_ind >= 0) {
             liked = liked.filter(id => id !== userId);
             likes -= 1;
-        }
-        else{
+        } else {
             liked.push(userId);
             likes += 1;
         }

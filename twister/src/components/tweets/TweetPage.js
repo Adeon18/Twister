@@ -37,13 +37,15 @@ const TweetPage = ({userData}) => {
 
     const onRemove = async (id) => {
         await fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
-            let tags = getTags(tweet.value);
-            tags.forEach(t => {
-                removeTagsJson(t, id);
-            })
-            setTweets((existingTweets) => existingTweets.filter(tweet => tweet.id !== id))
+            if (tweet.uid === userId) {
+                let tags = getTags(tweet.value);
+                tags.forEach(t => {
+                    removeTagsJson(t, id);
+                })
+                setTweets((existingTweets) => existingTweets.filter(tweet => tweet.id !== id))
+                fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
+            }
         })
-        await fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
     }
 
     const onDislike = async (id, dislikes, disliked) => {

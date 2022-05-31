@@ -57,13 +57,15 @@ const SearchManager = ({userData}) => {
 
 
     const onRemove = async (id, tag) => {
-        fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
-            let tags = getTags(tweet.value);
-            tags.forEach(t => {
-                removeTagsJson(t, id);
-            })
+        await fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
+            if (tweet.uid === userId) {
+                let tags = getTags(tweet.value);
+                tags.forEach(t => {
+                    removeTagsJson(t, id);
+                })
+                fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
+            }
         })
-        await fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
         await fetchSet(tag);
     }
 
