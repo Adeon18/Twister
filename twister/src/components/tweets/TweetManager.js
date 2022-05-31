@@ -9,9 +9,20 @@ import SearchField from "../search/SearchField";
 import HomeButton from "../HomeButton/HomeButton";
 
 
-const TweetManager = () => {
+const find_user = (array, id) => {
+    for (let i = 0; i < array.length; i++) {
+        console.log(array[i], i, id)
+        if (array[i] === id) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+const TweetManager = ({userData}) => {
     const [tweets, setTweets] = useState([]);
     const location = useLocation();
+    const userId = userData.id;
     useEffect(() => {
         fetch('http://localhost:3001/tweets')
             .then(response => response.json())
@@ -25,7 +36,7 @@ const TweetManager = () => {
             return
         }
         let id = new Date().getTime();
-        const newTweet = {value, id: id, likes: 0, dislikes: 0};
+        const newTweet = {value, id: id, likes: 0, dislikes: 0, liked: [], disliked: []};
         setTweets((existingTweets) => [...existingTweets, newTweet]);
 
         // extract hashtags
@@ -64,10 +75,23 @@ const TweetManager = () => {
         })
     }
 
-    const onLike = async (id, likes) => {
+    const onLike = async (id, likes, liked) => {
+        console.log(liked);
+        let user_ind = find_user(liked, userId);
+        console.log(user_ind);
+        if (user_ind >= 0) {
+            console.log("BBBBBB")
+            liked = liked.filter(id => id !== userId);
+            likes -= 1;
+        }
+        else{
+            console.log("AAAAA")
+            liked.push(userId);
+            likes += 1;
+        }
         await fetch('http://localhost:3001/tweets/' + id, {
             method: "PATCH",
-            body: JSON.stringify({'likes': likes + 1}),
+            body: JSON.stringify({'likes': likes, 'liked': liked}),
             headers: {'content-type': 'application/json'}
         })
         await fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
@@ -77,8 +101,8 @@ const TweetManager = () => {
 
     const mapTweets = (tweets) => {
         return (tweets.map((tweet) => (
-            <Tweet key={tweet.id} like={() => onLike(tweet.id, tweet.likes)}
-                   dislike={() => onDislike(tweet.id, tweet.dislikes)} remove={() => onRemove(tweet.id)}
+            <Tweet key={tweet.id} like={() => onLike(tweet.id, tweet.likes, tweet.liked)}
+                   dislike={() => onDislike(tweet.id, tweet.dislikes, tweet.disliked)} remove={() => onRemove(tweet.id)}
                    tweet={tweet}/>)
         ))
     }

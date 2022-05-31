@@ -24,7 +24,7 @@ function App() {
                 <LoginForm updateCurrentUserData={updateUserData}/>
             ):
                 <Routes>
-                    <Route path={"/"} element={<TweetManager/>}></Route>
+                    <Route path={"/"} element={<TweetManager userData={currentUserData}/>}></Route>
                     <Route path={"/tweet/:id"} element={<TweetPage/>}></Route>
                     <Route path={"/search"} element={<SearchManager/>}></Route>
                     <Route path={"/search/:id"} element={<SearchManager/>}></Route>
