@@ -30,6 +30,9 @@ const TweetPage = ({userData}) => {
     const userId = userData.id;
     const location = useLocation();
 
+    let pressedLike = false;
+    let pressedDislike = false;
+
     useEffect(() => {
         let id = location.pathname.substring(7, location.pathname.length);
         fetch('http://10.10.244.180:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
@@ -49,41 +52,46 @@ const TweetPage = ({userData}) => {
     }
 
     const onDislike = async (id, dislikes, disliked) => {
-        let user_ind = findUser(disliked, userId);
-        if (user_ind >= 0) {
-            disliked = disliked.filter(id => id !== userId);
-            dislikes -= 1;
+        if (!pressedDislike) {
+            let user_ind = findUser(disliked, userId);
+            if (user_ind >= 0) {
+                disliked = disliked.filter(id => id !== userId);
+                dislikes -= 1;
+            } else {
+                disliked.push(userId);
+                dislikes += 1;
+            }
+            pressedDislike = true;
+            await fetch('http://10.10.244.180:3001/tweets/' + id, {
+                method: "PATCH",
+                body: JSON.stringify({'dislikes': dislikes, 'disliked': disliked}),
+                headers: {'content-type': 'application/json'}
+            });
+            await fetch('http://10.10.244.180:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
+            pressedDislike = false;
         }
-        else{
-            disliked.push(userId);
-            dislikes += 1;
-        }
-        await fetch('http://10.10.244.180:3001/tweets/' + id, {
-            method: "PATCH",
-            body: JSON.stringify({'dislikes': dislikes, 'disliked':disliked}),
-            headers: {'content-type': 'application/json'}
-        });
-        await fetch('http://10.10.244.180:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
-
     }
 
     const onLike = async (id, likes, liked) => {
-        let user_ind = findUser(liked, userId);
-        if (user_ind >= 0) {
-            liked = liked.filter(id => id !== userId);
-            likes -= 1;
-        }
-        else{
-            liked.push(userId);
-            likes += 1;
-        }
-        await fetch('http://10.10.244.180:3001/tweets/' + id, {
-            method: "PATCH",
-            body: JSON.stringify({'likes': likes, 'liked': liked}),
-            headers: {'content-type': 'application/json'}
-        })
+        if (!pressedLike) {
+            let user_ind = findUser(liked, userId);
+            if (user_ind >= 0) {
+                liked = liked.filter(id => id !== userId);
+                likes -= 1;
+            } else {
+                liked.push(userId);
+                likes += 1;
+            }
+            pressedLike = true;
+            await fetch('http://10.10.244.180:3001/tweets/' + id, {
+                method: "PATCH",
+                body: JSON.stringify({'likes': likes, 'liked': liked}),
+                headers: {'content-type': 'application/json'}
+            })
 
-        await fetch('http://10.10.244.180:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
+            await fetch('http://10.10.244.180:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
+            pressedLike = false;
+        }
     }
 
 

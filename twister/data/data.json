@@ -1,24 +1,18 @@
 {
   "tweets": [
     {
-      "value": "aaa",
-      "id": 1654007459149,
-      "uid": 4,
-      "username": "safari",
-      "likes": -3,
-      "dislikes": 0,
-      "liked": [],
-      "disliked": []
-    },
-    {
       "value": "Olexiy is fucking stupid",
       "id": 1654007514370,
       "uid": 10,
       "username": "die12345",
-      "likes": 0,
+      "likes": 2,
       "dislikes": 0,
-      "liked": [],
-      "disliked": []
+      "liked": [
+        5,
+        4
+      ],
+      "disliked": [
+      ]
     },
     {
       "value": "go die",
