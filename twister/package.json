@@ -1,7 +1,7 @@
 {
   "name": "twister",
   "version": "0.1.0",
-  "proxy": "http://localhost:3001",
+  "proxy": "http://10.10.244.180:3001",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",

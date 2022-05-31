@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { hash } from "../../TagsHelper";
+import { hash } from "../../functions/TagsHelper";
 
 const SearchField = ({ }) => {
     const [searchTag, setSearchText] = useState('');
