@@ -1,10 +1,9 @@
 import {useLocation} from "react-router";
 import Tweet from "./Tweet";
-import {addTagsJson, removeTagsJson} from "../../functions/TagsHelper";
+import {findUser, removeTagsJson} from "../../functions/TagsHelper";
 import {useState, useEffect} from "react";
 import SearchField from "../search/SearchField";
 import HomeButton from "../HomeButton/HomeButton";
-import TweetField from "./TweetField";
 
 const getTags = (value) => {
     let tags = [];
@@ -26,13 +25,14 @@ const getTags = (value) => {
 }
 
 
-const TweetPage = () => {
+const TweetPage = ({userData}) => {
     const [tweets, setTweets] = useState([]);
-
+    const userId = userData.id;
     const location = useLocation();
 
     useEffect(() => {
-        setTweets(location.state);
+        let id = location.pathname.substring(7, location.pathname.length);
+        fetch('http://localhost:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
     }, [location])
 
     const onRemove = async (id) => {
@@ -46,33 +46,50 @@ const TweetPage = () => {
         await fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
     }
 
-    const onDislike = async (id, dislikes) => {
+    const onDislike = async (id, dislikes, disliked) => {
+        let user_ind = findUser(disliked, userId);
+        if (user_ind >= 0) {
+            disliked = disliked.filter(id => id !== userId);
+            dislikes -= 1;
+        }
+        else{
+            disliked.push(userId);
+            dislikes += 1;
+        }
         await fetch('http://localhost:3001/tweets/' + id, {
             method: "PATCH",
-            body: JSON.stringify({'dislikes': dislikes + 1}),
+            body: JSON.stringify({'dislikes': dislikes, 'disliked':disliked}),
             headers: {'content-type': 'application/json'}
         });
-        await fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
-            setTweets(tweets);
-        })
+        await fetch('http://localhost:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
+
     }
 
-    const onLike = async (id, likes) => {
+    const onLike = async (id, likes, liked) => {
+        let user_ind = findUser(liked, userId);
+        if (user_ind >= 0) {
+            liked = liked.filter(id => id !== userId);
+            likes -= 1;
+        }
+        else{
+            liked.push(userId);
+            likes += 1;
+        }
         await fetch('http://localhost:3001/tweets/' + id, {
             method: "PATCH",
-            body: JSON.stringify({'likes': likes + 1}),
+            body: JSON.stringify({'likes': likes, 'liked': liked}),
             headers: {'content-type': 'application/json'}
         })
-        await fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
-            setTweets(tweets);
-        })
+
+        await fetch('http://localhost:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
     }
+
 
     return <div>
         <HomeButton/>
         <SearchField/>
-        <Tweet key={tweets.id} like={() => onLike(tweets.id, tweets.likes)}
-               dislike={() => onDislike(tweets.id, tweets.dislikes)} remove={() => onRemove(tweets.id)}
+        <Tweet key={tweets.id} like={() => onLike(tweets.id, tweets.likes, tweets.liked)}
+               dislike={() => onDislike(tweets.id, tweets.dislikes, tweets.disliked)} remove={() => onRemove(tweets.id)}
                tweet={tweets}/>
     </div>
 }

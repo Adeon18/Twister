@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import SearchField from "./SearchField";
-import {findTweet, getTags, removeTagsJson} from "../../functions/TagsHelper"
+import {findTweet, findUser, getTags, removeTagsJson} from "../../functions/TagsHelper"
 import Tweet from "../tweets/Tweet";
 import {useLocation} from "react-router";
 import HomeButton from "../HomeButton/HomeButton";
@@ -14,73 +14,110 @@ const findTag = (array, tag) => {
     return -1;
 }
 
-const SearchManager = () => {
+
+const SearchManager = ({userData}) => {
     const [tagTweets, setTagTweets] = useState([]);
     const link = useLocation();
+    let tag = link.pathname.substring(8, link.pathname.length);
+    const userId = userData.id;
     let k = 0;
     useEffect(() => {
+        tag = link.pathname.substring(8, link.pathname.length);
+        fetchSet(tag);
+    }, [link]);
+
+
+    const fetchSet = (tag) => {
         let t = [];
         let tagTweetsID = [];
-        const tag = link.pathname.substring(8, link.pathname.length);
+        k ++;
+        if(k < 2){
         fetch('http://localhost:3001/tags/').then(response => response.json()).then(tags => {
             let tagInd = findTag(tags, tag);
-            k++;
             if (tagInd >= 0) {
                 tagTweetsID = tags[tagInd]['tweets'];
                 console.log(tagTweetsID);
                 setTagTweets(() => []);
-                if (k < 2) {
-                    for (let i = 0; i < tagTweetsID.length; i++) {
-                        fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
-                            let tweetInd = findTweet(tweets, tagTweetsID[i]);
+                for (let i = 0; i < tagTweetsID.length; i++) {
+                    fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
+                        let tweetInd = findTweet(tweets, tagTweetsID[i]);
+                        if(tweets[tweetInd] !== undefined){
                             t.push(tweets[tweetInd]);
                             console.log("AAAa", t);
                             setTagTweets((prev_state) => ([...prev_state, tweets[tweetInd]]));
-                        })
-                    }
+                        }
+                    })
                 }
             } else {
                 console.log("No results found");
             }
         })
-    }, [link]);
+    }
+    }
 
 
-    const onRemove = (id) => {
+    const onRemove = async (id, tag) => {
         fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
             let tags = getTags(tweet.value);
             tags.forEach(t => {
                 removeTagsJson(t, id);
             })
         })
-        fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
+        await fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
+        await fetchSet(tag);
     }
 
-    const onDislike = (id, dislikes) => {
-        fetch('http://localhost:3001/tweets/' + id, {
+    const onDislike = async (id, dislikes, disliked) => {
+        let user_ind = findUser(disliked, userId);
+        if (user_ind >= 0) {
+            disliked = disliked.filter(id => id !== userId);
+            dislikes -= 1;
+        }
+        else{
+            disliked.push(userId);
+            dislikes += 1;
+        }
+        await fetch('http://localhost:3001/tweets/' + id, {
             method: "PATCH",
-            body: JSON.stringify({'dislikes': dislikes + 1}),
+            body: JSON.stringify({'dislikes': dislikes, 'disliked':disliked}),
             headers: {'content-type': 'application/json'}
         });
+        await fetchSet(tag);
     }
 
-    const onLike = (id, likes) => {
-        fetch('http://localhost:3001/tweets/' + id, {
+    const onLike = async (id, likes, liked) => {
+        let user_ind = findUser(liked, userId);
+        if (user_ind >= 0) {
+            liked = liked.filter(id => id !== userId);
+            likes -= 1;
+        }
+        else{
+            liked.push(userId);
+            likes += 1;
+        }
+        await fetch('http://localhost:3001/tweets/' + id, {
             method: "PATCH",
-            body: JSON.stringify({'likes': likes + 1}),
+            body: JSON.stringify({'likes': likes, 'liked': liked}),
             headers: {'content-type': 'application/json'}
-        });
+        })
+        await fetchSet(tag);
     }
-    console.log(tagTweets);
+
+    const mapTweets = () =>{
+        console.log(tagTweets);
+        if(tagTweets.length > 0){
+        return tagTweets.map((tweet) => (
+            <Tweet key={tweet.id} like={() => onLike(tweet.id, tweet.likes, tweet.liked)}
+                   dislike={() => onDislike(tweet.id, tweet.dislikes, tweet.disliked)} remove={() => onRemove(tweet.id, tag)}
+                   tweet={tweet}/>)
+        )}
+    }
+
     return <div>
         <HomeButton/>
         <SearchField/>
         {
-            tagTweets.map((tweet) => (
-                <Tweet key={tweet.id} like={() => onLike(tweet.id, tweet.likes)}
-                       dislike={() => onDislike(tweet.id, tweet.dislikes)} remove={() => onRemove(tweet.id)}
-                       tweet={tweet}/>)
-            )
+         mapTweets()
         }
     </div>
 

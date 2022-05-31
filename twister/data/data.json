@@ -1,14 +1,5 @@
 {
-  "tweets": [
-    {
-      "value": "#die",
-      "id": 1653994565721,
-      "likes": 0,
-      "liked": [],
-      "dislikes": 0,
-      "disliked": []
-    }
-  ],
+  "tweets": [],
   "tags": [
     {
       "tweets": [
@@ -25,9 +16,7 @@
       "tag": "#tag2"
     },
     {
-      "tweets": [
-        1653994565721
-      ],
+      "tweets": [],
       "id": 1142141,
       "tag": "#die"
     },
