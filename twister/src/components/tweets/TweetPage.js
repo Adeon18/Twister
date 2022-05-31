@@ -32,18 +32,18 @@ const TweetPage = ({userData}) => {
 
     useEffect(() => {
         let id = location.pathname.substring(7, location.pathname.length);
-        fetch('http://localhost:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
+        fetch('http://10.10.244.180:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
     }, [location])
 
     const onRemove = async (id) => {
-        await fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
+        await fetch('http://10.10.244.180:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
             if (tweet.uid === userId) {
                 let tags = getTags(tweet.value);
                 tags.forEach(t => {
                     removeTagsJson(t, id);
                 })
                 setTweets((existingTweets) => existingTweets.filter(tweet => tweet.id !== id))
-                fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
+                fetch('http://10.10.244.180:3001/tweets/' + id, {method: "DELETE"})
             }
         })
     }
@@ -58,12 +58,12 @@ const TweetPage = ({userData}) => {
             disliked.push(userId);
             dislikes += 1;
         }
-        await fetch('http://localhost:3001/tweets/' + id, {
+        await fetch('http://10.10.244.180:3001/tweets/' + id, {
             method: "PATCH",
             body: JSON.stringify({'dislikes': dislikes, 'disliked':disliked}),
             headers: {'content-type': 'application/json'}
         });
-        await fetch('http://localhost:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
+        await fetch('http://10.10.244.180:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
 
     }
 
@@ -77,13 +77,13 @@ const TweetPage = ({userData}) => {
             liked.push(userId);
             likes += 1;
         }
-        await fetch('http://localhost:3001/tweets/' + id, {
+        await fetch('http://10.10.244.180:3001/tweets/' + id, {
             method: "PATCH",
             body: JSON.stringify({'likes': likes, 'liked': liked}),
             headers: {'content-type': 'application/json'}
         })
 
-        await fetch('http://localhost:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
+        await fetch('http://10.10.244.180:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
     }
 
 
@@ -92,7 +92,7 @@ const TweetPage = ({userData}) => {
         <SearchField/>
         <Tweet key={tweets.id} like={() => onLike(tweets.id, tweets.likes, tweets.liked)}
                dislike={() => onDislike(tweets.id, tweets.dislikes, tweets.disliked)} remove={() => onRemove(tweets.id)}
-               tweet={tweets}/>
+               tweet={tweets} userData={userData}/>
     </div>
 }
 

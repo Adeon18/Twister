@@ -16,7 +16,7 @@ const LoginForm = ( {updateCurrentUserData} ) => {
 
     useEffect(() => {
         console.log("made request..");
-        fetch("http://localhost:3001/users").then(userData => userData.json()).then(userData => {
+        fetch("http://10.10.244.180:3001/users").then(userData => userData.json()).then(userData => {
             setUserData(userData);
         });
     }, [])
@@ -77,7 +77,7 @@ const LoginForm = ( {updateCurrentUserData} ) => {
             const singleEntry = { "login": data.login, "password": JSON.stringify(SHA256(data.password).words), "tweets": [] };
             setUserData(userData => ([...userData, singleEntry]));
             // Fetch data
-            fetch("http://localhost:3001/users", { method: "POST", body: JSON.stringify(singleEntry), headers: { "content-type": "application/json" } });
+            fetch("http://10.10.244.180:3001/users", { method: "POST", body: JSON.stringify(singleEntry), headers: { "content-type": "application/json" } });
         }
     }
 

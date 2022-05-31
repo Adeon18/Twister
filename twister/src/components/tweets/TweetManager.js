@@ -14,7 +14,7 @@ const TweetManager = ({userData}) => {
     const location = useLocation();
     const userId = userData.id;
     useEffect(() => {
-        fetch('http://localhost:3001/tweets')
+        fetch('http://10.10.244.180:3001/tweets')
             .then(response => response.json())
             .then(tweets => setTweets(tweets))
     }, [])
@@ -26,7 +26,7 @@ const TweetManager = ({userData}) => {
             return
         }
         let id = new Date().getTime();
-        const newTweet = {value, id: id, uid: userId, likes: 0, dislikes: 0, liked: [], disliked: []};
+        const newTweet = {value, id: id, uid: userId, username: userData.login, likes: 0, dislikes: 0, liked: [], disliked: []};
         setTweets((existingTweets) => [...existingTweets, newTweet]);
 
         // extract hashtags
@@ -36,7 +36,7 @@ const TweetManager = ({userData}) => {
             addTagsJson(tag, id);
         })
 
-        await fetch('http://localhost:3001/tweets', {
+        await fetch('http://10.10.244.180:3001/tweets', {
             method: "POST",
             body: JSON.stringify(newTweet),
             headers: {'content-type': 'application/json'}
@@ -45,14 +45,14 @@ const TweetManager = ({userData}) => {
 
     const onRemove = async (id) => {
 
-        await fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
+        await fetch('http://10.10.244.180:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
             if (tweet.uid === userId) {
                 let tags = getTags(tweet.value);
                 tags.forEach(t => {
                     removeTagsJson(t, id);
                 })
                 setTweets((existingTweets) => existingTweets.filter(tweet => tweet.id !== id))
-                fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
+                fetch('http://10.10.244.180:3001/tweets/' + id, {method: "DELETE"})
             }
         })
     }
@@ -66,12 +66,12 @@ const TweetManager = ({userData}) => {
             disliked.push(userId);
             dislikes += 1;
         }
-        await fetch('http://localhost:3001/tweets/' + id, {
+        await fetch('http://10.10.244.180:3001/tweets/' + id, {
             method: "PATCH",
             body: JSON.stringify({'dislikes': dislikes, 'disliked': disliked}),
             headers: {'content-type': 'application/json'}
         });
-        await fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
+        await fetch('http://10.10.244.180:3001/tweets/').then(response => response.json()).then(tweets => {
             setTweets(tweets);
         })
     }
@@ -85,12 +85,12 @@ const TweetManager = ({userData}) => {
             liked.push(userId);
             likes += 1;
         }
-        await fetch('http://localhost:3001/tweets/' + id, {
+        await fetch('http://10.10.244.180:3001/tweets/' + id, {
             method: "PATCH",
             body: JSON.stringify({'likes': likes, 'liked': liked}),
             headers: {'content-type': 'application/json'}
         })
-        await fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
+        await fetch('http://10.10.244.180:3001/tweets/').then(response => response.json()).then(tweets => {
             setTweets(tweets);
         })
     }
@@ -99,7 +99,7 @@ const TweetManager = ({userData}) => {
         return (tweets.map((tweet) => (
             <Tweet key={tweet.id} like={() => onLike(tweet.id, tweet.likes, tweet.liked)}
                    dislike={() => onDislike(tweet.id, tweet.dislikes, tweet.disliked)} remove={() => onRemove(tweet.id)}
-                   tweet={tweet}/>)
+                   tweet={tweet} userData={userData}/>)
         ))
     }
 

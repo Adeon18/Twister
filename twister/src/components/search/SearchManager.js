@@ -32,14 +32,14 @@ const SearchManager = ({userData}) => {
         let tagTweetsID = [];
         k ++;
         if(k < 2){
-        fetch('http://localhost:3001/tags/').then(response => response.json()).then(tags => {
+        fetch('http://10.10.244.180:3001/tags/').then(response => response.json()).then(tags => {
             let tagInd = findTag(tags, tag);
             if (tagInd >= 0) {
                 tagTweetsID = tags[tagInd]['tweets'];
                 console.log(tagTweetsID);
                 setTagTweets(() => []);
                 for (let i = 0; i < tagTweetsID.length; i++) {
-                    fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
+                    fetch('http://10.10.244.180:3001/tweets/').then(response => response.json()).then(tweets => {
                         let tweetInd = findTweet(tweets, tagTweetsID[i]);
                         if(tweets[tweetInd] !== undefined){
                             t.push(tweets[tweetInd]);
@@ -57,13 +57,13 @@ const SearchManager = ({userData}) => {
 
 
     const onRemove = async (id, tag) => {
-        await fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
+        await fetch('http://10.10.244.180:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
             if (tweet.uid === userId) {
                 let tags = getTags(tweet.value);
                 tags.forEach(t => {
                     removeTagsJson(t, id);
                 })
-                fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
+                fetch('http://10.10.244.180:3001/tweets/' + id, {method: "DELETE"})
             }
         })
         await fetchSet(tag);
@@ -79,7 +79,7 @@ const SearchManager = ({userData}) => {
             disliked.push(userId);
             dislikes += 1;
         }
-        await fetch('http://localhost:3001/tweets/' + id, {
+        await fetch('http://10.10.244.180:3001/tweets/' + id, {
             method: "PATCH",
             body: JSON.stringify({'dislikes': dislikes, 'disliked':disliked}),
             headers: {'content-type': 'application/json'}
@@ -97,7 +97,7 @@ const SearchManager = ({userData}) => {
             liked.push(userId);
             likes += 1;
         }
-        await fetch('http://localhost:3001/tweets/' + id, {
+        await fetch('http://10.10.244.180:3001/tweets/' + id, {
             method: "PATCH",
             body: JSON.stringify({'likes': likes, 'liked': liked}),
             headers: {'content-type': 'application/json'}
