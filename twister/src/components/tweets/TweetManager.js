@@ -3,21 +3,13 @@ import TweetField from "./TweetField";
 import Tweet from "./Tweet";
 
 
-import {addTagsJson, removeTagsJson, getTags} from "../../functions/TagsHelper"
+import {addTagsJson, removeTagsJson, getTags, findUser} from "../../functions/TagsHelper"
 import {useLocation} from "react-router";
 import SearchField from "../search/SearchField";
 import HomeButton from "../HomeButton/HomeButton";
 
 
-const find_user = (array, id) => {
-    for (let i = 0; i < array.length; i++) {
-        console.log(array[i], i, id)
-        if (array[i] === id) {
-            return i;
-        }
-    }
-    return -1;
-}
+
 
 const TweetManager = ({userData}) => {
     const [tweets, setTweets] = useState([]);
@@ -64,10 +56,19 @@ const TweetManager = ({userData}) => {
         await fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
     }
 
-    const onDislike = async (id, dislikes) => {
+    const onDislike = async (id, dislikes, disliked) => {
+        let user_ind = findUser(disliked, userId);
+        if (user_ind >= 0) {
+            disliked = disliked.filter(id => id !== userId);
+            dislikes -= 1;
+        }
+        else{
+            disliked.push(userId);
+            dislikes += 1;
+        }
         await fetch('http://localhost:3001/tweets/' + id, {
             method: "PATCH",
-            body: JSON.stringify({'dislikes': dislikes + 1}),
+            body: JSON.stringify({'dislikes': dislikes, 'disliked':disliked}),
             headers: {'content-type': 'application/json'}
         });
         await fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
@@ -76,16 +77,12 @@ const TweetManager = ({userData}) => {
     }
 
     const onLike = async (id, likes, liked) => {
-        console.log(liked);
-        let user_ind = find_user(liked, userId);
-        console.log(user_ind);
+        let user_ind = findUser(liked, userId);
         if (user_ind >= 0) {
-            console.log("BBBBBB")
             liked = liked.filter(id => id !== userId);
             likes -= 1;
         }
         else{
-            console.log("AAAAA")
             liked.push(userId);
             likes += 1;
         }
