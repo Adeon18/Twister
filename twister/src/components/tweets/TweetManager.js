@@ -3,7 +3,7 @@ import TweetField from "./TweetField";
 import Tweet from "./Tweet";
 
 
-import {addTagsJson, removeTagsJson, getTags, findTweet} from "../../functions/TagsHelper"
+import {addTagsJson, removeTagsJson, getTags} from "../../functions/TagsHelper"
 import {useLocation} from "react-router";
 import SearchField from "../search/SearchField";
 import HomeButton from "../HomeButton/HomeButton";
@@ -35,22 +35,22 @@ const TweetManager = () => {
             addTagsJson(tag, id);
         })
 
-        fetch('http://localhost:3001/tweets', {
+        await fetch('http://localhost:3001/tweets', {
             method: "POST",
             body: JSON.stringify(newTweet),
             headers: {'content-type': 'application/json'}
         });
     }
 
-    const onRemove = (id) => {
-        fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
+    const onRemove = async (id) => {
+        await fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
             let tags = getTags(tweet.value);
             tags.forEach(t => {
                 removeTagsJson(t, id);
             })
             setTweets((existingTweets) => existingTweets.filter(tweet => tweet.id !== id))
         })
-        fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
+        await fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
     }
 
     const onDislike = async (id, dislikes) => {
