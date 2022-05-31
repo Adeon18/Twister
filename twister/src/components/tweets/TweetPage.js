@@ -1,6 +1,9 @@
 import {useLocation} from "react-router";
 import Tweet from "./Tweet";
-import {useEffect, useState} from "react";
+import {removeTagsJson} from "../../functions/TagsHelper";
+import {useState, useEffect} from "react";
+import SearchField from "../search/SearchField";
+import HomeButton from "../HomeButton/HomeButton";
 
 const getTags = (value) => {
     let tags = [];
@@ -21,43 +24,21 @@ const getTags = (value) => {
     return tags;
 }
 
-const removeTagsJson = (tag, tweetId) => {
-    let tagTweets = [];
-    let tagHash = hash(tag);
-    fetch('http://localhost:3001/tags/'+tagHash).then(response => response.json()).then(tag => {
-        tagTweets = tag["tweets"];
-        console.log(tagTweets, tweetId);
-        tagTweets = tagTweets.filter(id => id !== tweetId);
-        console.log(tagTweets);
-        fetch('http://localhost:3001/tags/' + tagHash, {
-            method: "PATCH",
-            body: JSON.stringify({tweets: tagTweets}),
-            headers: {'content-type': 'application/json'}
-        })
-    });
-}
-
-const hash = (value) => {
-    let hash = 0;
-    for (let i = 0; i < value.length; i++) {
-        let char = value.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash; // Convert to 32bit integer
-    }
-    return hash;
-}
 
 const TweetPage = () => {
     const [tweets, setTweets] = useState([]);
+
     const location = useLocation();
-    const tweet = location.state;
-    // const tweet = state.tweet;
-    // let id = location.pathname.substring(7, location.pathname.length)
-    // console.log(id)
+
+    useEffect(() => {
+        setTweets(location.state);
+    }, [location])
+
+
     const onRemove = (id) => {
         fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
             let tags = getTags(tweet.value);
-            tags.forEach(t =>{
+            tags.forEach(t => {
                 removeTagsJson(t, id);
             })
         })
@@ -82,9 +63,11 @@ const TweetPage = () => {
         });
     }
     return <div>
-        <Tweet key={tweet.id} like={() => onLike(tweet.id, tweet.likes)}
-               dislike={() => onDislike(tweet.id, tweet.dislikes)} remove={() => onRemove(tweet.id)}
-               tweet={tweet}/>
+        <HomeButton/>
+        <SearchField/>
+        <Tweet key={tweets.id} like={() => onLike(tweets.id, tweets.likes)}
+               dislike={() => onDislike(tweets.id, tweets.dislikes)} remove={() => onRemove(tweets.id)}
+               tweet={tweets}/>
     </div>
 }
 

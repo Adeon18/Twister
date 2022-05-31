@@ -3,9 +3,10 @@ import TweetField from "./TweetField";
 import Tweet from "./Tweet";
 
 
-import { addTagsJson, removeTagsJson, getTags } from "../../TagsHelper"
+import {addTagsJson, removeTagsJson, getTags} from "../../functions/TagsHelper"
 import {useLocation} from "react-router";
 import SearchField from "../search/SearchField";
+import HomeButton from "../HomeButton/HomeButton";
 
 
 const TweetManager = () => {
@@ -44,7 +45,7 @@ const TweetManager = () => {
     const onRemove = (id) => {
         fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
             let tags = getTags(tweet.value);
-            tags.forEach(t =>{
+            tags.forEach(t => {
                 removeTagsJson(t, id);
             })
             setTweets((existingTweets) => existingTweets.filter(tweet => tweet.id !== id))
@@ -85,6 +86,7 @@ const TweetManager = () => {
     }
 
     return <div>
+        <HomeButton/>
         <TweetField onTweetSend={onTweetSend}/>
         <SearchField/>
         {

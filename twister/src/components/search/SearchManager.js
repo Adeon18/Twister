@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import SearchField from "./SearchField";
-import {findTweet, getTags, removeTagsJson} from "../../TagsHelper"
+import {findTweet, getTags, removeTagsJson} from "../../functions/TagsHelper"
 import Tweet from "../tweets/Tweet";
 import {useLocation} from "react-router";
+import HomeButton from "../HomeButton/HomeButton";
 
 const findTag = (array, tag) => {
     for (let i = 0; i < array.length; i++) {
@@ -12,15 +13,6 @@ const findTag = (array, tag) => {
     }
     return -1;
 }
-
-// const findTweet = (array, id) => {
-//     for(let i = 0; i<array.length; i++){
-//         if(array[i].id === id){
-//             return i;
-//         }
-//     }
-//     return -1;
-// }
 
 const SearchManager = () => {
     const [tagTweets, setTagTweets] = useState([]);
@@ -81,6 +73,7 @@ const SearchManager = () => {
     }
     console.log(tagTweets);
     return <div>
+        <HomeButton/>
         <SearchField/>
         {
             tagTweets.map((tweet) => (
