@@ -1,46 +1,12 @@
 {
   "tweets": [
     {
-      "value": "aa",
-      "id": 1653562818508,
-      "likes": 0,
-      "dislikes": 0
-    },
-    {
-      "value": "aaaaaaaa #die",
-      "id": 1653575000083,
-      "likes": 0,
-      "dislikes": 0
-    },
-    {
-      "value": "die #f",
-      "id": 1653576444461,
-      "likes": 0,
-      "dislikes": 0
-    },
-    {
-      "value": "Гарна кніпочка",
-      "id": 1653688751912,
-      "likes": 0,
-      "dislikes": 0
-    },
-    {
-      "value": "no more symbols((((",
-      "id": 1653688935803,
-      "likes": 0,
-      "dislikes": 0
-    },
-    {
-      "value": "fnka'lf/mksdf/f",
-      "id": 1653689100122,
-      "likes": 0,
-      "dislikes": 0
-    },
-    {
-      "value": "hello i fixed the weird thing and did a lot of govnokod :)",
-      "id": 1653689872153,
-      "likes": 0,
-      "dislikes": 0
+      "value": "#die",
+      "id": 1653994565721,
+      "likes": 48,
+      "liked": [],
+      "dislikes": 5,
+      "disliked": []
     }
   ],
   "tags": [
@@ -60,15 +26,13 @@
     },
     {
       "tweets": [
-        1653575000083
+        1653994565721
       ],
       "id": 1142141,
       "tag": "#die"
     },
     {
-      "tweets": [
-        1653576444461
-      ],
+      "tweets": [],
       "id": 1187,
       "tag": "#f"
     }

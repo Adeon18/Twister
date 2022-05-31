@@ -3,7 +3,7 @@ import TweetField from "./TweetField";
 import Tweet from "./Tweet";
 
 
-import {addTagsJson, removeTagsJson, getTags} from "../../functions/TagsHelper"
+import {addTagsJson, removeTagsJson, getTags, findTweet} from "../../functions/TagsHelper"
 import {useLocation} from "react-router";
 import SearchField from "../search/SearchField";
 import HomeButton from "../HomeButton/HomeButton";
@@ -18,7 +18,7 @@ const TweetManager = () => {
             .then(tweets => setTweets(tweets))
     }, [])
 
-    const onTweetSend = (value) => {
+    const onTweetSend = async (value) => {
         console.log(location);
         // dont tweet to small tweets (and empty tweets)
         if (value.length < 2) {
@@ -53,28 +53,26 @@ const TweetManager = () => {
         fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
     }
 
-    const onDislike = (id, dislikes) => {
-        setTweets((existingTweets) => existingTweets.map(tweet => tweet.id === id ? ({
-            ...tweet,
-            dislikes: dislikes + 1
-        }) : tweet))
-        fetch('http://localhost:3001/tweets/' + id, {
+    const onDislike = async (id, dislikes) => {
+        await fetch('http://localhost:3001/tweets/' + id, {
             method: "PATCH",
             body: JSON.stringify({'dislikes': dislikes + 1}),
             headers: {'content-type': 'application/json'}
         });
+        await fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
+            setTweets(tweets);
+        })
     }
 
-    const onLike = (id, likes) => {
-        setTweets((existingTweets) => existingTweets.map(tweet => tweet.id === id ? ({
-            ...tweet,
-            likes: likes + 1
-        }) : tweet))
-        fetch('http://localhost:3001/tweets/' + id, {
+    const onLike = async (id, likes) => {
+        await fetch('http://localhost:3001/tweets/' + id, {
             method: "PATCH",
             body: JSON.stringify({'likes': likes + 1}),
             headers: {'content-type': 'application/json'}
-        });
+        })
+        await fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
+            setTweets(tweets);
+        })
     }
 
     const mapTweets = (tweets) => {
