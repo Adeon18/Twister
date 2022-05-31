@@ -25,6 +25,13 @@ const TweetManager = ({userData}) => {
             .then(tweets => setTweets(tweets))
     }, [])
 
+    const sortTweets = () =>{
+        let tweetsToSort = tweets;
+        tweetsToSort.sort((a, b) => (a.id > b.id)?1:0)
+        console.log(tweetsToSort);
+        console.log(tweets);
+    }
+
     const onTweetSend = async (value) => {
         console.log(location);
         // dont tweet to small tweets (and empty tweets)
@@ -33,7 +40,7 @@ const TweetManager = ({userData}) => {
         }
         let id = new Date().getTime();
         const newTweet = {value, id: id, uid: userId, username: userData.login, likes: 0, dislikes: 0, liked: [], disliked: []};
-        setTweets((existingTweets) => [...existingTweets, newTweet]);
+        setTweets((existingTweets) => [newTweet, ...existingTweets]);
 
         // extract hashtags
         let tags = getTags(value)
@@ -46,11 +53,10 @@ const TweetManager = ({userData}) => {
             method: "POST",
             body: JSON.stringify(newTweet),
             headers: {'content-type': 'application/json'}
-        });
+        })
     }
 
     const onRemove = async (id) => {
-
         await fetch('http://10.10.244.180:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
             if (tweet.uid === userId) {
                 let tags = getTags(tweet.value);
