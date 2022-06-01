@@ -1,7 +1,7 @@
-import {useLocation} from "react-router";
+import { useLocation } from "react-router";
 import Tweet from "./Tweet";
-import {findUser, removeTagsJson} from "../../functions/TagsHelper";
-import {useState, useEffect} from "react";
+import { findUser, removeTagsJson } from "../../functions/TagsHelper";
+import { useState, useEffect } from "react";
 import SearchField from "../search/SearchField";
 import HomeButton from "../HomeButton/HomeButton";
 
@@ -25,7 +25,7 @@ const getTags = (value) => {
 }
 
 
-const TweetPage = ({userData}) => {
+const TweetPage = ({ userData }) => {
     const [tweets, setTweets] = useState([]);
     const userId = userData.id;
     const location = useLocation();
@@ -35,18 +35,18 @@ const TweetPage = ({userData}) => {
 
     useEffect(() => {
         let id = location.pathname.substring(7, location.pathname.length);
-        fetch('http://10.10.244.180:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
+        fetch('http://localhost:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
     }, [location])
 
     const onRemove = async (id) => {
-        await fetch('http://10.10.244.180:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
+        await fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
             if (tweet.uid === userId) {
                 let tags = getTags(tweet.value);
                 tags.forEach(t => {
                     removeTagsJson(t, id);
                 })
                 setTweets((existingTweets) => existingTweets.filter(tweet => tweet.id !== id))
-                fetch('http://10.10.244.180:3001/tweets/' + id, {method: "DELETE"})
+                fetch('http://localhost:3001/tweets/' + id, { method: "DELETE" })
             }
         })
     }
@@ -62,12 +62,12 @@ const TweetPage = ({userData}) => {
                 dislikes += 1;
             }
             pressedDislike = true;
-            await fetch('http://10.10.244.180:3001/tweets/' + id, {
+            await fetch('http://localhost:3001/tweets/' + id, {
                 method: "PATCH",
-                body: JSON.stringify({'dislikes': dislikes, 'disliked': disliked}),
-                headers: {'content-type': 'application/json'}
+                body: JSON.stringify({ 'dislikes': dislikes, 'disliked': disliked }),
+                headers: { 'content-type': 'application/json' }
             });
-            await fetch('http://10.10.244.180:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
+            await fetch('http://localhost:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
             pressedDislike = false;
         }
     }
@@ -83,24 +83,24 @@ const TweetPage = ({userData}) => {
                 likes += 1;
             }
             pressedLike = true;
-            await fetch('http://10.10.244.180:3001/tweets/' + id, {
+            await fetch('http://localhost:3001/tweets/' + id, {
                 method: "PATCH",
-                body: JSON.stringify({'likes': likes, 'liked': liked}),
-                headers: {'content-type': 'application/json'}
+                body: JSON.stringify({ 'likes': likes, 'liked': liked }),
+                headers: { 'content-type': 'application/json' }
             })
 
-            await fetch('http://10.10.244.180:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
+            await fetch('http://localhost:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
             pressedLike = false;
         }
     }
 
 
     return <div>
-        <HomeButton/>
-        <SearchField/>
+        <HomeButton />
+        <SearchField />
         <Tweet key={tweets.id} like={() => onLike(tweets.id, tweets.likes, tweets.liked)}
-               dislike={() => onDislike(tweets.id, tweets.dislikes, tweets.disliked)} remove={() => onRemove(tweets.id)}
-               tweet={tweets} userData={userData}/>
+            dislike={() => onDislike(tweets.id, tweets.dislikes, tweets.disliked)} remove={() => onRemove(tweets.id)}
+            tweet={tweets} userData={userData} />
     </div>
 }
 

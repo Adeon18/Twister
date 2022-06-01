@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import SearchField from "./SearchField";
-import {findTweet, findUser, getTags, removeTagsJson} from "../../functions/TagsHelper"
+import { findTweet, findUser, getTags, removeTagsJson } from "../../functions/TagsHelper"
 import Tweet from "../tweets/Tweet";
-import {useLocation} from "react-router";
+import { useLocation } from "react-router";
 import HomeButton from "../HomeButton/HomeButton";
 
 const findTag = (array, tag) => {
@@ -15,7 +15,7 @@ const findTag = (array, tag) => {
 }
 
 
-const SearchManager = ({userData}) => {
+const SearchManager = ({ userData }) => {
     const [tagTweets, setTagTweets] = useState([]);
     const link = useLocation();
     const userId = userData.id;
@@ -37,14 +37,14 @@ const SearchManager = ({userData}) => {
         let tagTweetsID = [];
         k++;
         if (k < 2) {
-            fetch('http://10.10.244.180:3001/tags/').then(response => response.json()).then(tags => {
+            fetch('http://localhost:3001/tags/').then(response => response.json()).then(tags => {
                 let tagInd = findTag(tags, tag);
                 if (tagInd >= 0) {
                     tagTweetsID = tags[tagInd]['tweets'];
                     console.log(tagTweetsID);
                     setTagTweets(() => []);
                     for (let i = 0; i < tagTweetsID.length; i++) {
-                        fetch('http://10.10.244.180:3001/tweets/').then(response => response.json()).then(tweets => {
+                        fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
                             let tweetInd = findTweet(tweets, tagTweetsID[i]);
                             if (tweets[tweetInd] !== undefined) {
                                 t.push(tweets[tweetInd]);
@@ -62,13 +62,13 @@ const SearchManager = ({userData}) => {
 
 
     const onRemove = async (id, tag) => {
-        await fetch('http://10.10.244.180:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
+        await fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
             if (tweet.uid === userId) {
                 let tags = getTags(tweet.value);
                 tags.forEach(t => {
                     removeTagsJson(t, id);
                 })
-                fetch('http://10.10.244.180:3001/tweets/' + id, {method: "DELETE"})
+                fetch('http://localhost:3001/tweets/' + id, { method: "DELETE" })
             }
         })
         await fetchSet(tag);
@@ -85,10 +85,10 @@ const SearchManager = ({userData}) => {
                 dislikes += 1;
             }
             pressedDislike = true;
-            await fetch('http://10.10.244.180:3001/tweets/' + id, {
+            await fetch('http://localhost:3001/tweets/' + id, {
                 method: "PATCH",
-                body: JSON.stringify({'dislikes': dislikes, 'disliked': disliked}),
-                headers: {'content-type': 'application/json'}
+                body: JSON.stringify({ 'dislikes': dislikes, 'disliked': disliked }),
+                headers: { 'content-type': 'application/json' }
             });
             await fetchSet(tag);
             pressedDislike = false;
@@ -106,10 +106,10 @@ const SearchManager = ({userData}) => {
                 likes += 1;
             }
             pressedLike = true;
-            await fetch('http://10.10.244.180:3001/tweets/' + id, {
+            await fetch('http://localhost:3001/tweets/' + id, {
                 method: "PATCH",
-                body: JSON.stringify({'likes': likes, 'liked': liked}),
-                headers: {'content-type': 'application/json'}
+                body: JSON.stringify({ 'likes': likes, 'liked': liked }),
+                headers: { 'content-type': 'application/json' }
             })
             await fetchSet(tag);
             pressedLike = false;
@@ -121,16 +121,16 @@ const SearchManager = ({userData}) => {
         if (tagTweets.length > 0) {
             return tagTweets.map((tweet) => (
                 <Tweet key={tweet.id} like={() => onLike(tweet.id, tweet.likes, tweet.liked)}
-                       dislike={() => onDislike(tweet.id, tweet.dislikes, tweet.disliked)}
-                       remove={() => onRemove(tweet.id, tag)}
-                       tweet={tweet}/>)
+                    dislike={() => onDislike(tweet.id, tweet.dislikes, tweet.disliked)}
+                    remove={() => onRemove(tweet.id, tag)}
+                    tweet={tweet} />)
             )
         }
     }
 
     return <div>
-        <HomeButton/>
-        <SearchField/>
+        <HomeButton />
+        <SearchField />
         {
             mapTweets()
         }

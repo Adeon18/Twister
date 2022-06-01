@@ -1,15 +1,15 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import TweetField from "./TweetField";
 import Tweet from "./Tweet";
 
 
-import {addTagsJson, removeTagsJson, getTags, findUser} from "../../functions/TagsHelper"
+import { addTagsJson, removeTagsJson, getTags, findUser } from "../../functions/TagsHelper"
 import SearchField from "../search/SearchField";
 import HomeButton from "../HomeButton/HomeButton";
-import {useLocation} from "react-router";
+import { useLocation } from "react-router";
 
 
-const TweetManager = ({userData}) => {
+const TweetManager = ({ userData }) => {
     const [tweets, setTweets] = useState([]);
     const location = useLocation();
     const userId = userData.id;
@@ -20,14 +20,14 @@ const TweetManager = ({userData}) => {
     // END KOSTYL
 
     useEffect(() => {
-        fetch('http://10.10.244.180:3001/tweets')
+        fetch('http://localhost:3001/tweets')
             .then(response => response.json())
             .then(tweets => setTweets(tweets))
     }, [])
 
-    const sortTweets = () =>{
+    const sortTweets = () => {
         let tweetsToSort = tweets;
-        tweetsToSort.sort((a, b) => (a.id > b.id)?1:0)
+        tweetsToSort.sort((a, b) => (a.id > b.id) ? 1 : 0)
         console.log(tweetsToSort);
         console.log(tweets);
     }
@@ -39,7 +39,7 @@ const TweetManager = ({userData}) => {
             return
         }
         let id = new Date().getTime();
-        const newTweet = {value, id: id, uid: userId, username: userData.login, likes: 0, dislikes: 0, liked: [], disliked: []};
+        const newTweet = { value, id: id, uid: userId, username: userData.login, likes: 0, dislikes: 0, liked: [], disliked: [] };
         setTweets((existingTweets) => [newTweet, ...existingTweets]);
 
         // extract hashtags
@@ -49,22 +49,22 @@ const TweetManager = ({userData}) => {
             addTagsJson(tag, id);
         })
 
-        await fetch('http://10.10.244.180:3001/tweets', {
+        await fetch('http://localhost:3001/tweets', {
             method: "POST",
             body: JSON.stringify(newTweet),
-            headers: {'content-type': 'application/json'}
+            headers: { 'content-type': 'application/json' }
         })
     }
 
     const onRemove = async (id) => {
-        await fetch('http://10.10.244.180:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
+        await fetch('http://localhost:3001/tweets/' + id,).then(response => response.json()).then(tweet => {
             if (tweet.uid === userId) {
                 let tags = getTags(tweet.value);
                 tags.forEach(t => {
                     removeTagsJson(t, id);
                 })
                 setTweets((existingTweets) => existingTweets.filter(tweet => tweet.id !== id))
-                fetch('http://10.10.244.180:3001/tweets/' + id, {method: "DELETE"})
+                fetch('http://localhost:3001/tweets/' + id, { method: "DELETE" })
             }
         })
     }
@@ -80,12 +80,12 @@ const TweetManager = ({userData}) => {
                 dislikes += 1;
             }
             pressedDislike = true;
-            await fetch('http://10.10.244.180:3001/tweets/' + id, {
+            await fetch('http://localhost:3001/tweets/' + id, {
                 method: "PATCH",
-                body: JSON.stringify({'dislikes': dislikes, 'disliked': disliked}),
-                headers: {'content-type': 'application/json'}
+                body: JSON.stringify({ 'dislikes': dislikes, 'disliked': disliked }),
+                headers: { 'content-type': 'application/json' }
             });
-            await fetch('http://10.10.244.180:3001/tweets/').then(response => response.json()).then(tweets => {
+            await fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
                 setTweets(tweets);
             })
             pressedDislike = false;
@@ -103,12 +103,12 @@ const TweetManager = ({userData}) => {
                 likes += 1;
             }
             pressedLike = true
-            await fetch('http://10.10.244.180:3001/tweets/' + id, {
+            await fetch('http://localhost:3001/tweets/' + id, {
                 method: "PATCH",
-                body: JSON.stringify({'likes': likes, 'liked': liked}),
-                headers: {'content-type': 'application/json'}
+                body: JSON.stringify({ 'likes': likes, 'liked': liked }),
+                headers: { 'content-type': 'application/json' }
             })
-            await fetch('http://10.10.244.180:3001/tweets/').then(response => response.json()).then(tweets => {
+            await fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
                 setTweets(tweets);
             })
             pressedLike = false;
@@ -118,15 +118,15 @@ const TweetManager = ({userData}) => {
     const mapTweets = (tweets) => {
         return (tweets.map((tweet) => (
             <Tweet key={tweet.id} like={() => onLike(tweet.id, tweet.likes, tweet.liked)}
-                   dislike={() => onDislike(tweet.id, tweet.dislikes, tweet.disliked)} remove={() => onRemove(tweet.id)}
-                   tweet={tweet} userData={userData}/>)
+                dislike={() => onDislike(tweet.id, tweet.dislikes, tweet.disliked)} remove={() => onRemove(tweet.id)}
+                tweet={tweet} userData={userData} />)
         ))
     }
 
     return <div>
-        <HomeButton/>
-        <TweetField onTweetSend={onTweetSend}/>
-        <SearchField/>
+        <HomeButton />
+        <TweetField onTweetSend={onTweetSend} />
+        <SearchField />
         {
             mapTweets(tweets)
         }

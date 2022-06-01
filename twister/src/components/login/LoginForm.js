@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import LoginInput from "./LoginInput"
-import {useNavigate} from "react-router";
+import { useNavigate } from "react-router";
 
 
-const LoginForm = ( {updateCurrentUserData} ) => {
+const LoginForm = ({ updateCurrentUserData }) => {
 
     let SHA256 = require("crypto-js/sha256");
 
@@ -16,7 +16,7 @@ const LoginForm = ( {updateCurrentUserData} ) => {
 
     useEffect(() => {
         console.log("made request..");
-        fetch("http://10.10.244.180:3001/users").then(userData => userData.json()).then(userData => {
+        fetch("http://localhost:3001/users").then(userData => userData.json()).then(userData => {
             setUserData(userData);
         });
     }, [])
@@ -26,7 +26,7 @@ const LoginForm = ( {updateCurrentUserData} ) => {
         for (const entry of userData) {
             if (entry.login === data.login) {
                 if (JSON.stringify(SHA256(data.password).words) === entry.password) {
-                    updateCurrentUserData({login: entry.login, id: entry.id});
+                    updateCurrentUserData({ login: entry.login, id: entry.id });
                     return true;
                 }
             }
@@ -77,7 +77,7 @@ const LoginForm = ( {updateCurrentUserData} ) => {
             const singleEntry = { "login": data.login, "password": JSON.stringify(SHA256(data.password).words), "tweets": [] };
             setUserData(userData => ([...userData, singleEntry]));
             // Fetch data
-            fetch("http://10.10.244.180:3001/users", { method: "POST", body: JSON.stringify(singleEntry), headers: { "content-type": "application/json" } });
+            fetch("http://localhost:3001/users", { method: "POST", body: JSON.stringify(singleEntry), headers: { "content-type": "application/json" } });
         }
     }
 
@@ -88,4 +88,4 @@ const LoginForm = ( {updateCurrentUserData} ) => {
     );
 }
 
-export default LoginForm;
+export default LoginForm; 
