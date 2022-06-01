@@ -5,7 +5,7 @@
       "id": 1654088149935,
       "username": "manjaro-cool",
       "likes": 18,
-      "dislikes": 1,
+      "dislikes": 0,
       "liked": [
         null,
         null,
@@ -26,13 +26,81 @@
         null,
         null
       ],
-      "disliked": [
-        1
-      ]
+      "disliked": []
     },
     {
       "value": "huoj;sjd.kmf",
       "id": 1654088187621,
+      "uid": 1,
+      "username": "manjaro-cool",
+      "likes": 0,
+      "dislikes": 0,
+      "liked": [],
+      "disliked": []
+    },
+    {
+      "value": "иощажипоіпт\n",
+      "id": 1654093140846,
+      "uid": 1,
+      "username": "manjaro-cool",
+      "likes": 0,
+      "dislikes": 0,
+      "liked": [],
+      "disliked": []
+    },
+    {
+      "value": "ращєфоажлдадбва",
+      "id": 1654093144785,
+      "uid": 1,
+      "username": "manjaro-cool",
+      "likes": 0,
+      "dislikes": 0,
+      "liked": [],
+      "disliked": []
+    },
+    {
+      "value": "атофдат.лдіа",
+      "id": 1654093147062,
+      "uid": 1,
+      "username": "manjaro-cool",
+      "likes": 0,
+      "dislikes": 0,
+      "liked": [],
+      "disliked": []
+    },
+    {
+      "value": "аолівфароідфа\n",
+      "id": 1654093149526,
+      "uid": 1,
+      "username": "manjaro-cool",
+      "likes": 0,
+      "dislikes": 0,
+      "liked": [],
+      "disliked": []
+    },
+    {
+      "value": "bfjl/ankfmsf",
+      "id": 1654093510001,
+      "uid": 1,
+      "username": "manjaro-cool",
+      "likes": 0,
+      "dislikes": 0,
+      "liked": [],
+      "disliked": []
+    },
+    {
+      "value": "bfL/FNKDS,",
+      "id": 1654093512276,
+      "uid": 1,
+      "username": "manjaro-cool",
+      "likes": 0,
+      "dislikes": 0,
+      "liked": [],
+      "disliked": []
+    },
+    {
+      "value": "DBSJK.FSD",
+      "id": 1654093514423,
       "uid": 1,
       "username": "manjaro-cool",
       "likes": 0,

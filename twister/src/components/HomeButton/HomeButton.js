@@ -1,9 +1,9 @@
-import {Link} from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import bird from './img/bird.png'
 
 const HomeButton = () => {
-    return <Link to={'/'}>
-        <button>HOME</button>
+    return <Link to={'/'} className={"butonckik-home"}>
+        <button><img src={bird} alt={"Bird"}></img></button>
     </Link>
 }
 
