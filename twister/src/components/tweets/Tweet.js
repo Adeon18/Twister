@@ -6,7 +6,7 @@ const Tweet = ({tweet, remove, dislike, like, userData}) => {
     return <div className={"post"}>
         <div className={"header-info"}>
             <label> user: {tweet.username}</label>
-            <Link to={`/tweet/${tweet.id}`} state={tweet}>
+            <Link style={{textDecoration: 'none'}} to={`/tweet/${tweet.id}`} state={tweet}>
                 <p>{tweet.value}</p>
             </Link>
         </div>
