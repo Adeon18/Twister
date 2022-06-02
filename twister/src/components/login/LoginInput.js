@@ -15,7 +15,7 @@ const LoginInputForm = ({Login, Register, error}) => {
 
     const submitRegisterHandler = ev => {
         ev.preventDefault();
-        Register({login: login, password: password});
+        Register({login: login, password: password, id: Math.round(new Date().getTime() / 1000)});
     }
 
     return (

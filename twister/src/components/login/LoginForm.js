@@ -74,7 +74,7 @@ const LoginForm = ({ updateCurrentUserData }) => {
     const onRegisterHandler = data => {
         if (canRegister(data)) {
             setError("");
-            const singleEntry = { "login": data.login, "password": JSON.stringify(SHA256(data.password).words), "tweets": [] };
+            const singleEntry = { "login": data.login, "password": JSON.stringify(SHA256(data.password).words), id: data.id};
             setUserData(userData => ([...userData, singleEntry]));
             // Fetch data
             fetch("http://localhost:3001/users", { method: "POST", body: JSON.stringify(singleEntry), headers: { "content-type": "application/json" } });
