@@ -210,7 +210,7 @@ body {
 .search-box button {
     /* top: 40px; */
     float: right;
-    padding-top: 5px;
+    padding: 5px;
     position: relative;
     margin-right: 15px;
     display: inline;
@@ -221,6 +221,7 @@ body {
     transition: .5s;
     border-radius: 12px;
     border-color: #6ce972;
+    margin-top: 9px;
 }
 
 .search-box button:hover {
@@ -275,6 +276,11 @@ body {
     letter-spacing: 4px;
     border-radius: 20px;
     border-color: #6ce972;
+    resize: none;
+}
+
+.tweet-box button {
+    margin-top: 35px;
 }
 
 
@@ -486,3 +492,6 @@ body {
 
 }
 
+.del-button {
+    padding: 5px;
+}
