@@ -3,7 +3,7 @@ import TweetField from "./TweetField";
 import Tweet from "./Tweet";
 
 
-import { addTagsJson, removeTagsJson, getTags, findUser } from "../../functions/TagsHelper"
+import { addTagsJson, removeTagsJson, getTags, findUser, sortTweets } from "../../functions/TagsHelper"
 import SearchField from "../search/SearchField";
 import HomeButton from "../HomeButton/HomeButton";
 import { useLocation } from "react-router";
@@ -22,15 +22,10 @@ const TweetManager = ({ userData }) => {
     useEffect(() => {
         fetch('http://localhost:3001/tweets')
             .then(response => response.json())
-            .then(tweets => setTweets(tweets))
+            .then(tweets => setTweets(sortTweets(tweets)))
     }, [])
 
-    const sortTweets = () => {
-        let tweetsToSort = tweets;
-        tweetsToSort.sort((a, b) => (a.id > b.id) ? 1 : 0)
-        console.log(tweetsToSort);
-        console.log(tweets);
-    }
+
 
     const onTweetSend = async (value) => {
         console.log(location);
@@ -86,7 +81,7 @@ const TweetManager = ({ userData }) => {
                 headers: { 'content-type': 'application/json' }
             });
             await fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
-                setTweets(tweets);
+                setTweets(sortTweets(tweets));
             })
             pressedDislike = false;
         }
@@ -109,7 +104,7 @@ const TweetManager = ({ userData }) => {
                 headers: { 'content-type': 'application/json' }
             })
             await fetch('http://localhost:3001/tweets/').then(response => response.json()).then(tweets => {
-                setTweets(tweets);
+                setTweets(sortTweets(tweets));
             })
             pressedLike = false;
         }

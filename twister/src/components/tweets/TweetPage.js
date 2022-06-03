@@ -1,7 +1,7 @@
-import { useLocation } from "react-router";
+import {useLocation} from "react-router";
 import Tweet from "./Tweet";
-import { findUser, removeTagsJson } from "../../functions/TagsHelper";
-import { useState, useEffect } from "react";
+import {findUser, removeTagsJson, sortTweets} from "../../functions/TagsHelper";
+import {useState, useEffect} from "react";
 import SearchField from "../search/SearchField";
 import HomeButton from "../HomeButton/HomeButton";
 
@@ -25,7 +25,7 @@ const getTags = (value) => {
 }
 
 
-const TweetPage = ({ userData }) => {
+const TweetPage = ({userData}) => {
     const [tweets, setTweets] = useState([]);
     const userId = userData.id;
     const location = useLocation();
@@ -46,7 +46,7 @@ const TweetPage = ({ userData }) => {
                     removeTagsJson(t, id);
                 })
                 setTweets((existingTweets) => existingTweets.filter(tweet => tweet.id !== id))
-                fetch('http://localhost:3001/tweets/' + id, { method: "DELETE" })
+                fetch('http://localhost:3001/tweets/' + id, {method: "DELETE"})
             }
         })
     }
@@ -64,10 +64,10 @@ const TweetPage = ({ userData }) => {
             pressedDislike = true;
             await fetch('http://localhost:3001/tweets/' + id, {
                 method: "PATCH",
-                body: JSON.stringify({ 'dislikes': dislikes, 'disliked': disliked }),
-                headers: { 'content-type': 'application/json' }
+                body: JSON.stringify({'dislikes': dislikes, 'disliked': disliked}),
+                headers: {'content-type': 'application/json'}
             });
-            await fetch('http://localhost:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
+            await fetch('http://localhost:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(sortTweets(tweet)))
             pressedDislike = false;
         }
     }
@@ -85,22 +85,22 @@ const TweetPage = ({ userData }) => {
             pressedLike = true;
             await fetch('http://localhost:3001/tweets/' + id, {
                 method: "PATCH",
-                body: JSON.stringify({ 'likes': likes, 'liked': liked }),
-                headers: { 'content-type': 'application/json' }
+                body: JSON.stringify({'likes': likes, 'liked': liked}),
+                headers: {'content-type': 'application/json'}
             })
 
-            await fetch('http://localhost:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(tweet))
+            await fetch('http://localhost:3001/tweets/' + id).then(response => response.json()).then(tweet => setTweets(sortTweets(tweet)))
             pressedLike = false;
         }
     }
 
 
     return <div>
-        <HomeButton />
-        <SearchField />
+        <HomeButton/>
+        <SearchField/>
         <Tweet key={tweets.id} like={() => onLike(tweets.id, tweets.likes, tweets.liked)}
-            dislike={() => onDislike(tweets.id, tweets.dislikes, tweets.disliked)} remove={() => onRemove(tweets.id)}
-            tweet={tweets} userData={userData} />
+               dislike={() => onDislike(tweets.id, tweets.dislikes, tweets.disliked)} remove={() => onRemove(tweets.id)}
+               tweet={tweets} userData={userData}/>
     </div>
 }
 

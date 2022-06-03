@@ -96,4 +96,10 @@ const findUser = (array, id) => {
     return -1;
 }
 
-export {hash, findTweet, findTag, addTagsJson, removeTagsJson, getTags, findUser}
+const sortTweets = (t) => {
+    let sorted = t;
+    sorted.sort((a, b) => (a.id < b.id) ? 1 : 0)
+    return sorted;
+}
+
+export {hash, findTweet, findTag, addTagsJson, removeTagsJson, getTags, findUser, sortTweets}

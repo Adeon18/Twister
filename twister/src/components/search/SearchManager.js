@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SearchField from "./SearchField";
-import { findTweet, findUser, getTags, removeTagsJson } from "../../functions/TagsHelper"
+import { findTweet, findUser, getTags, removeTagsJson, sortTweets } from "../../functions/TagsHelper"
 import Tweet from "../tweets/Tweet";
 import { useLocation } from "react-router";
 import HomeButton from "../HomeButton/HomeButton";
@@ -49,7 +49,7 @@ const SearchManager = ({ userData }) => {
                             if (tweets[tweetInd] !== undefined) {
                                 t.push(tweets[tweetInd]);
                                 console.log("AAAa", t);
-                                setTagTweets((prev_state) => ([...prev_state, tweets[tweetInd]]));
+                                setTagTweets((prev_state) => (sortTweets([...prev_state, tweets[tweetInd]])));
                             }
                         })
                     }
@@ -123,7 +123,7 @@ const SearchManager = ({ userData }) => {
                 <Tweet key={tweet.id} like={() => onLike(tweet.id, tweet.likes, tweet.liked)}
                     dislike={() => onDislike(tweet.id, tweet.dislikes, tweet.disliked)}
                     remove={() => onRemove(tweet.id, tag)}
-                    tweet={tweet} />)
+                    tweet={tweet} userData={userData} />)
             )
         }
     }
