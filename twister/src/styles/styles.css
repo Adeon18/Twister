@@ -189,7 +189,6 @@ body {
     box-shadow: 0 10px 15px rgb(47, 104, 38, 0.60);
 
     text-decoration: none;
-    text-transform: uppercase;
     overflow: hidden;
     transition: .5s;
     letter-spacing: 4px;
@@ -247,7 +246,6 @@ body {
     box-shadow: 0 10px 15px rgb(47, 104, 38, 0.60);
 
     text-decoration: none;
-    text-transform: uppercase;
     overflow: hidden;
     transition: .5s;
     letter-spacing: 4px;
@@ -270,7 +268,6 @@ body {
     box-shadow: 0 10px 15px rgb(47, 104, 38, 0.60);
 
     text-decoration: none;
-    text-transform: uppercase;
     overflow: hidden;
     transition: .5s;
     letter-spacing: 4px;
@@ -450,7 +447,6 @@ body {
     box-shadow: 0 10px 15px rgb(47, 104, 38, 0.20);
 
     text-decoration: none;
-    text-transform: uppercase;
     overflow: hidden;
     transition: .5s;
     letter-spacing: 4px;
