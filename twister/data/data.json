@@ -1,167 +1,30 @@
 {
   "tweets": [
     {
-      "value": "hfoewhfil.afjkrl/amf",
-      "id": 1654088149935,
-      "username": "manjaro-cool",
-      "likes": 35,
-      "dislikes": 1,
-      "liked": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1654178369
-      ],
-      "disliked": [
-        1654179126
-      ]
-    },
-    {
-      "value": "huoj;sjd.kmf",
-      "id": 1654088187621,
-      "uid": 1,
-      "username": "manjaro-cool",
+      "value": "Welcome to Twister! #please_give_us_points",
+      "id": 1654287104679,
+      "uid": 1654287086,
+      "username": "Ade0n",
       "likes": 0,
       "dislikes": 0,
       "liked": [],
-      "disliked": []
-    },
-    {
-      "value": "иощажипоіпт\n",
-      "id": 1654093140846,
-      "uid": 1,
-      "username": "manjaro-cool",
-      "likes": 0,
-      "dislikes": 0,
-      "liked": [],
-      "disliked": []
-    },
-    {
-      "value": "ращєфоажлдадбва",
-      "id": 1654093144785,
-      "uid": 1,
-      "username": "manjaro-cool",
-      "likes": 0,
-      "dislikes": 0,
-      "liked": [],
-      "disliked": []
-    },
-    {
-      "value": "атофдат.лдіа",
-      "id": 1654093147062,
-      "uid": 1,
-      "username": "manjaro-cool",
-      "likes": 0,
-      "dislikes": 0,
-      "liked": [],
-      "disliked": []
-    },
-    {
-      "value": "аолівфароідфа\n",
-      "id": 1654093149526,
-      "uid": 1,
-      "username": "manjaro-cool",
-      "likes": 0,
-      "dislikes": 0,
-      "liked": [],
-      "disliked": []
-    },
-    {
-      "value": "bfjl/ankfmsf",
-      "id": 1654093510001,
-      "uid": 1,
-      "username": "manjaro-cool",
-      "likes": 0,
-      "dislikes": 0,
-      "liked": [],
-      "disliked": []
-    },
-    {
-      "value": "bfL/FNKDS,",
-      "id": 1654093512276,
-      "uid": 1,
-      "username": "manjaro-cool",
-      "likes": 0,
-      "dislikes": 0,
-      "liked": [],
-      "disliked": []
-    },
-    {
-      "value": "DBSJK.FSD",
-      "id": 1654093514423,
-      "uid": 1,
-      "username": "manjaro-cool",
-      "likes": 0,
-      "dislikes": 0,
-      "liked": [],
-      "disliked": []
-    },
-    {
-      "value": "no more transposed tweets.",
-      "id": 1654170034886,
-      "uid": 1,
-      "username": "manjaro-cool",
-      "likes": 2,
-      "dislikes": 0,
-      "liked": [
-        1,
-        1654178554
-      ],
       "disliked": []
     }
   ],
-  "tags": [],
+  "tags": [
+    {
+      "tweets": [
+        1654287104679
+      ],
+      "id": 1273171624,
+      "tag": "#please_give_us_points"
+    }
+  ],
   "users": [
-    {
-      "login": "AAAAAAAAAAAAAAAAAAAA",
-      "password": "[1456260316,-57257141,117181448,-1560166876,-247772908,-2066359932,-1791180581,-1447315302]",
-      "id": 1654178369
-    },
-    {
-      "login": "Adeon18",
-      "password": "[1456260316,-57257141,117181448,-1560166876,-247772908,-2066359932,-1791180581,-1447315302]",
-      "id": 1654178518
-    },
     {
       "login": "Ade0n",
       "password": "[1456260316,-57257141,117181448,-1560166876,-247772908,-2066359932,-1791180581,-1447315302]",
-      "id": 1654178554
-    },
-    {
-      "login": "ASHGWDQYFUIOJCWKR",
-      "password": "[-1951431670,857050662,184193723,61126198,797586514,-1278931731,1069563157,-257649667]",
-      "id": 1654179126
+      "id": 1654287086
     }
   ]
 }
