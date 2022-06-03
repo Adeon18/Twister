@@ -59,7 +59,7 @@ Or you can:
 ****
 
 ### Authors
-- [Olexiy Hoyev](https://github.com/alexg-lviv)
+- [Oleksiy Hoyev](https://github.com/alexg-lviv)
 - [Ostap Trush](https://github.com/Adeon18)
 - [Dasha Minieieva](https://github.com/DariaMinieieva)
 - [Alina Bondarets](https://github.com/alorthius)
